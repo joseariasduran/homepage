@@ -6,7 +6,7 @@
   <title>José de Jesús Arias Durán | Business Intelligence & Data Science</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <script>
     tailwind.config = {
       darkMode: 'class',
@@ -31,136 +31,253 @@
   </script>
   <style>
     body { background-color: #0A0F1E; color: #F1F5F9; overflow-x: hidden; }
-    .glass { background: rgba(17, 24, 39, 0.72); backdrop-filter: blur(14px); border: 1px solid rgba(56, 189, 248, 0.15); }
-    .glass-card { background: rgba(15, 23, 42, 0.85); border: 1px solid rgba(148, 163, 184, 0.12); transition: all 0.3s ease; }
-    .glass-card:hover { border-color: rgba(56, 189, 248, 0.45); transform: translateY(-4px); box-shadow: 0 12px 30px -10px rgba(56, 189, 248, 0.18); }
-    input[type="range"] { -webkit-appearance: none; background: #1E293B; height: 6px; border-radius: 999px; }
-    input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 18px; height: 18px; border-radius: 50%; background: #38BDF8; cursor: pointer; box-shadow: 0 0 10px rgba(56, 189, 248, 0.8); }
+    .glass-nav { background: rgba(10, 15, 30, 0.8); backdrop-filter: blur(16px); border-bottom: 1px solid rgba(56, 189, 248, 0.12); }
+    .command-panel { background: linear-gradient(145deg, rgba(17, 24, 39, 0.88), rgba(10, 15, 30, 0.94)); backdrop-filter: blur(18px); border: 1px solid rgba(56, 189, 248, 0.22); box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7), 0 0 30px rgba(56, 189, 248, 0.08); }
+    .card-hover { background: rgba(15, 23, 42, 0.85); border: 1px solid rgba(148, 163, 184, 0.12); transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+    .card-hover:hover { border-color: rgba(56, 189, 248, 0.5); transform: translateY(-5px); box-shadow: 0 15px 35px -10px rgba(56, 189, 248, 0.2); }
+    input[type="range"] { -webkit-appearance: none; background: #1E293B; height: 6px; border-radius: 999px; outline: none; }
+    input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 18px; height: 18px; border-radius: 50%; background: #38BDF8; cursor: pointer; box-shadow: 0 0 12px rgba(56, 189, 248, 0.9); border: 2px solid #0A0F1E; }
     .cursor-blink { animation: blink 1s step-end infinite; }
     @keyframes blink { 50% { opacity: 0; } }
+    .grid-bg { background-size: 40px 40px; background-image: linear-gradient(to right, rgba(56, 189, 248, 0.04) 1px, transparent 1px), linear-gradient(to bottom, rgba(56, 189, 248, 0.04) 1px, transparent 1px); }
   </style>
 </head>
-<body class="antialiased selection:bg-brand-cyan selection:text-slate-950">
+<body class="antialiased selection:bg-brand-cyan selection:text-slate-950 grid-bg">
 
   <!-- NAVBAR -->
-  <nav class="fixed top-0 inset-x-0 z-50 glass border-b border-slate-800/80">
+  <nav class="fixed top-0 inset-x-0 z-50 glass-nav">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
       <a href="#page-top" class="flex items-center gap-2.5 font-mono font-bold text-lg tracking-tight text-white">
-        <span class="w-3 h-3 rounded-full bg-brand-cyan animate-pulse"></span>
-        <span>JAD<span class="text-brand-cyan">.analytics</span></span>
+        <span class="relative flex h-3 w-3">
+          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-cyan opacity-75"></span>
+          <span class="relative inline-flex rounded-full h-3 w-3 bg-brand-cyan"></span>
+        </span>
+        <span>JAD<span class="text-brand-cyan">.BI</span></span>
       </a>
+
       <div class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-300">
         <a href="#about" class="hover:text-brand-cyan transition" data-i18n="nav_about">Sobre Mí</a>
         <a href="#services" class="hover:text-brand-cyan transition" data-i18n="nav_services">Servicios</a>
         <a href="#portfolio" class="hover:text-brand-cyan transition" data-i18n="nav_portfolio">Portafolio</a>
         <a href="#contact" class="hover:text-brand-cyan transition" data-i18n="nav_contact">Contacto</a>
       </div>
+
       <div class="flex items-center gap-3">
-        <button id="langToggle" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 border border-slate-700 font-mono text-xs font-semibold text-brand-cyan transition">
+        <button id="langBtn" onclick="toggleLanguage()" class="px-3 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-700 font-mono text-xs font-semibold text-brand-cyan transition">
           🇬🇧 ENG
         </button>
-        <a href="#contact" class="hidden sm:inline-flex px-4 py-1.5 rounded-lg bg-brand-cyan text-slate-950 font-semibold text-xs hover:bg-sky-300 transition" data-i18n="nav_hire">
+        <a href="#contact" class="hidden sm:inline-flex px-4 py-1.5 rounded-lg bg-brand-cyan text-slate-950 font-semibold text-xs hover:bg-sky-300 transition" data-i18n="nav_cta">
           Hablemos
         </a>
       </div>
     </div>
   </nav>
 
-  <!-- HERO: DATA COMMAND CENTER INTERACTIVO -->
-  <section id="page-top" class="relative min-h-screen flex items-center pt-20 pb-16 overflow-hidden">
-    <canvas id="neuralCanvas" class="absolute inset-0 w-full h-full pointer-events-auto"></canvas>
-    <div class="absolute inset-0 bg-gradient-to-b from-transparent via-[#0A0F1E]/60 to-[#0A0F1E] pointer-events-none"></div>
+  <!-- HERO: DATA COMMAND CENTER -->
+  <section id="page-top" class="relative min-h-screen flex items-center pt-24 pb-16 overflow-hidden">
+    <canvas id="particleCanvas" class="absolute inset-0 w-full h-full pointer-events-auto"></canvas>
+    <div class="absolute inset-0 bg-gradient-to-b from-transparent via-[#0A0F1E]/55 to-[#0A0F1E] pointer-events-none"></div>
 
     <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
       <div class="grid lg:grid-cols-12 gap-10 items-center">
         
-        <!-- COLUMNA IZQUIERDA: PITCH Y ACCIONES -->
+        <!-- COLUMNA IZQUIERDA -->
         <div class="lg:col-span-6 space-y-6 pointer-events-auto">
-          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sky-500/10 border border-sky-400/30 text-brand-cyan font-mono text-xs">
-            <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
-            <span data-i18n="hero_badge">Disponible para proyectos BI, Data Science & IA</span>
+          <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-sky-500/10 border border-sky-400/30 text-brand-cyan font-mono text-xs">
+            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+            <span data-i18n="hero_status">DATA COMMAND CENTER • 100% REMOTO</span>
           </div>
 
-          <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-tight">
+          <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-[1.1]">
             José de Jesús <br/>
             <span class="bg-gradient-to-r from-brand-cyan via-brand-indigo to-brand-purple bg-clip-text text-transparent">
               Arias Durán
             </span>
           </h1>
 
-          <div class="font-mono text-base sm:text-lg text-slate-300 h-7">
-            <span class="text-brand-cyan">&gt; </span><span id="typewriterText"></span><span class="cursor-blink text-brand-cyan">_</span>
+          <div class="font-mono text-sm sm:text-base text-slate-300 h-7 flex items-center">
+            <span class="text-brand-cyan mr-2">&gt;</span>
+            <span id="typewriter"></span>
+            <span class="cursor-blink text-brand-cyan ml-0.5">|</span>
           </div>
 
-          <p class="text-slate-400 text-base sm:text-lg leading-relaxed max-w-xl" data-i18n="hero_desc">
-            Ingeniero Industrial con <strong class="text-slate-200">+10 años de liderazgo operacional</strong> en los sectores automotriz, motocicletas y maquinaria agrícola. Transformo datos complejos en tableros ejecutivos de Power BI, modelos predictivos y automatización con IA.
+          <p class="text-slate-400 text-base sm:text-lg leading-relaxed max-w-xl" data-i18n="hero_subtitle">
+            Ingeniero Industrial y de Sistemas con <strong class="text-slate-200">+10 años de liderazgo operacional</strong>. Transformo datos operativos y comerciales complejos en arquitecturas de Business Intelligence, modelos predictivos y automatización con IA.
           </p>
 
-          <!-- BOTONES PRINCIPALES (INCLUYE DESCARGA DE CV) -->
+          <!-- BOTONES PRINCIPALES (CON BOTÓN DESCARGAR CV AGREGADO) -->
           <div class="flex flex-wrap gap-3 pt-2">
-            <a href="#portfolio" class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-brand-cyan to-brand-indigo text-slate-950 font-semibold text-sm shadow-lg shadow-cyan-500/20 hover:opacity-95 transition">
-              <span data-i18n="hero_cta_projects">Explorar Proyectos</span>
+            <a href="#portfolio" class="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-gradient-to-r from-brand-cyan to-brand-indigo text-slate-950 font-bold text-sm shadow-lg shadow-cyan-500/20 hover:opacity-95 transition">
+              <span data-i18n="hero_btn_projects">Explorar Proyectos</span>
               <i class="fa-solid fa-arrow-right text-xs"></i>
             </a>
-            <a href="#contact" class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-slate-800/80 hover:bg-slate-800 border border-slate-700 text-slate-200 font-semibold text-sm transition">
-              <span data-i18n="hero_cta_contact">Contactar</span>
+            <a href="#contact" class="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-slate-900/90 hover:bg-slate-800 border border-slate-700 text-slate-200 font-semibold text-sm transition">
+              <span data-i18n="hero_btn_contact">Contactar</span>
             </a>
-            <a href="./assets/cv-jose-arias.pdf" download="CV_Jose_Arias_Duran.pdf" target="_blank" class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-slate-900/90 hover:bg-slate-800 border border-brand-cyan/40 text-brand-cyan font-semibold text-sm transition">
+            <a href="./assets/cv-jose-arias.pdf" download="CV_Jose_Arias_Duran.pdf" target="_blank" class="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-slate-900/90 hover:bg-slate-800 border border-brand-cyan/40 text-brand-cyan font-semibold text-sm transition">
               <i class="fa-solid fa-file-arrow-down"></i>
-              <span data-i18n="hero_cta_cv">Descargar CV</span>
+              <span data-i18n="hero_btn_cv">Descargar CV</span>
             </a>
           </div>
 
-          <!-- REDES -->
-          <div class="flex items-center gap-5 pt-2 text-slate-400 text-lg">
-            <a href="https://linkedin.com/in/joseariasduran" target="_blank" class="hover:text-brand-cyan transition" aria-label="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
-            <a href="https://github.com/joseariasduran" target="_blank" class="hover:text-brand-cyan transition" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
-            <a href="mailto:jose.aduran@live.com" class="hover:text-brand-cyan transition" aria-label="Email"><i class="fa-solid fa-envelope"></i></a>
-            <span class="text-xs font-mono text-slate-500">| Mueve el cursor o haz clic en el fondo para interactuar</span>
+          <!-- BARRA DE MÉTRICAS RÁPIDAS -->
+          <div class="grid grid-cols-3 gap-4 pt-4 border-t border-slate-800/80 max-w-lg">
+            <div>
+              <p class="text-2xl font-extrabold text-white">+10</p>
+              <p class="text-xs font-mono text-slate-400" data-i18n="stat_exp">Años Operaciones</p>
+            </div>
+            <div>
+              <p class="text-2xl font-extrabold text-brand-cyan">88%</p>
+              <p class="text-xs font-mono text-slate-400" data-i18n="stat_acc">Precisión Churn ML</p>
+            </div>
+            <div>
+              <p class="text-2xl font-extrabold text-brand-purple">BI + IA</p>
+              <p class="text-xs font-mono text-slate-400" data-i18n="stat_stack">End-to-End Stack</p>
+            </div>
           </div>
         </div>
 
-        <!-- COLUMNA DERECHA: SIMULADOR EJECUTIVO BI & ML EN VIVO -->
+        <!-- COLUMNA DERECHA: SIMULADOR EJECUTIVO BI & ML CON MEDIDOR RADIAL SVG -->
         <div class="lg:col-span-6 pointer-events-auto">
-          <div class="glass rounded-2xl p-6 shadow-2xl border border-slate-700/60">
+          <div class="command-panel rounded-2xl p-6">
             <div class="flex items-center justify-between border-b border-slate-800 pb-4 mb-5">
               <div class="flex items-center gap-2">
-                <span class="w-2.5 h-2.5 rounded-full bg-rose-500"></span>
-                <span class="w-2.5 h-2.5 rounded-full bg-amber-400"></span>
-                <span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span>
-                <span class="ml-2 font-mono text-xs text-slate-400">Executive_BI_Simulator.py</span>
+                <span class="w-3 h-3 rounded-full bg-rose-500/90"></span>
+                <span class="w-3 h-3 rounded-full bg-amber-400/90"></span>
+                <span class="w-3 h-3 rounded-full bg-emerald-400/90"></span>
+                <span class="ml-2 font-mono text-xs text-slate-400">Predictive_Decision_Engine.py</span>
               </div>
-              <span class="px-2.5 py-0.5 rounded bg-brand-cyan/10 text-brand-cyan font-mono text-[11px]">LIVE MODEL</span>
+              <span class="px-2.5 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 font-mono text-[10px]">
+                INTERACTIVE
+              </span>
             </div>
 
-            <!-- SELECTOR DE ESCENARIO -->
+            <!-- TABS DE ESCENARIOS -->
             <div class="grid grid-cols-3 gap-2 mb-5">
-              <button onclick="setScenario('churn')" id="btn-churn" class="scenario-btn px-3 py-2 rounded-lg text-xs font-semibold bg-brand-cyan text-slate-950 transition">
-                🚗 Churn Automotriz
+              <button onclick="switchScenario('churn')" id="tab-churn" class="scen-tab px-3 py-2 rounded-lg text-xs font-semibold bg-brand-cyan text-slate-950 transition">
+                🚗 Churn Posventa
               </button>
-              <button onclick="setScenario('health')" id="btn-health" class="scenario-btn px-3 py-2 rounded-lg text-xs font-semibold bg-slate-800 text-slate-300 hover:bg-slate-700 transition">
-                🏥 Capacidad Médica
+              <button onclick="switchScenario('health')" id="tab-health" class="scen-tab px-3 py-2 rounded-lg text-xs font-semibold bg-slate-900 text-slate-300 border border-slate-800 hover:border-slate-700 transition">
+                🏥 Capacidad Clínica
               </button>
-              <button onclick="setScenario('leads')" id="btn-leads" class="scenario-btn px-3 py-2 rounded-lg text-xs font-semibold bg-slate-800 text-slate-300 hover:bg-slate-700 transition">
-                🎯 Leads B2B & IA
+              <button onclick="switchScenario('leads')" id="tab-leads" class="scen-tab px-3 py-2 rounded-lg text-xs font-semibold bg-slate-900 text-slate-300 border border-slate-800 hover:border-slate-700 transition">
+                🤖 Leads B2B & IA
               </button>
             </div>
 
-            <!-- CONTROL DESLIZANTE -->
-            <div class="bg-slate-900/80 rounded-xl p-4 border border-slate-800 mb-5">
-              <div class="flex justify-between text-xs font-mono mb-2">
-                <span id="sliderLabel" class="text-slate-300">Nivel de Intervención Preventiva</span>
-                <span id="sliderValue" class="text-brand-cyan font-bold">65%</span>
+            <!-- MEDIDOR RADIAL + CONTROLES -->
+            <div class="grid sm:grid-cols-12 gap-4 items-center bg-slate-950/70 rounded-xl p-4 border border-slate-800/90 mb-5">
+              <div class="sm:col-span-5 flex flex-col items-center justify-center">
+                <svg class="w-28 h-28 -rotate-90" viewBox="0 0 100 100">
+                  <circle cx="50" cy="50" r="40" stroke="#1E293B" stroke-width="9" fill="none" />
+                  <circle id="radialProgress" cx="50" cy="50" r="40" stroke="#38BDF8" stroke-width="9" fill="none" stroke-dasharray="251.2" stroke-dashoffset="60" stroke-linecap="round" class="transition-all duration-300" />
+                </svg>
+                <div class="-mt-16 mb-7 text-center">
+                  <span id="radialText" class="text-xl font-extrabold text-white">88.4%</span>
+                  <p id="radialSub" class="text-[10px] font-mono text-slate-400">RETENCIÓN</p>
+                </div>
               </div>
-              <input type="range" id="simSlider" min="10" max="100" value="65" class="w-full" oninput="updateSimulator()" />
+
+              <div class="sm:col-span-7 space-y-3">
+                <div class="flex justify-between text-xs font-mono">
+                  <span id="controlLabel" class="text-slate-300">Intensidad Acción Preventiva</span>
+                  <span id="controlVal" class="text-brand-cyan font-bold">65%</span>
+                </div>
+                <input type="range" id="impactRange" min="10" max="100" value="65" class="w-full" oninput="renderSimulation()" />
+                <p id="scenarioNote" class="text-xs text-slate-400 leading-relaxed">
+                  Basado en <strong class="text-slate-200">AutoSmart-Retention (XGBoost)</strong>: prioriza clientes con alta probabilidad de abandono antes de su próximo servicio.
+                </p>
+              </div>
             </div>
 
-            <!-- KPIS DINÁMICOS -->
-            <div class="grid grid-cols-3 gap-3 mb-5">
-              <div class="bg-slate-900/90 rounded-xl p-3.5 border border-slate-800">
-                <p id="kpi1Label" class="text-[11px] text-slate-400 font-mono">Retención Proyectada</p>
-                <p id="kpi1Val" class="text-xl sm:text-2xl font-bold text-emerald-400 mt-1">88.4%</p>
+            <!-- TARJETAS KPI -->
+            <div class="grid grid-cols-3 gap-3 mb-4">
+              <div class="bg-slate-900/90 rounded-xl p-3 border border-slate-800">
+                <p id="m1Label" class="text-[10px] font-mono text-slate-400 uppercase">Impacto Financiero</p>
+                <p id="m1Val" class="text-lg sm:text-xl font-bold text-emerald-400 mt-0.5">$146K</p>
               </div>
-              <div class="bg-slate-900/90 rounded-xl p-3.5 border border-slate-800">
-                <p id="kpi2Label" class="text-[11px] text-slate-400 font-mono">Ahorro / Ingreso Anual</p>
-                <p id="kpi2Val" class="
+              <div class="bg-slate-900/90 rounded-xl p-3 border border-slate-800">
+                <p id="m2Label" class="text-[10px] font-mono text-slate-400 uppercase">Clientes Salvados</p>
+                <p id="m2Val" class="text-lg sm:text-xl font-bold text-brand-cyan mt-0.5">312</p>
+              </div>
+              <div class="bg-slate-900/90 rounded-xl p-3 border border-slate-800">
+                <p id="m3Label" class="text-[10px] font-mono text-slate-400 uppercase">Algoritmo</p>
+                <p id="m3Val" class="text-lg sm:text-xl font-bold text-brand-purple mt-0.5">XGBoost</p>
+              </div>
+            </div>
+
+            <!-- SPARKLINE SVG -->
+            <div class="bg-slate-950/90 rounded-xl p-3.5 border border-slate-800/80">
+              <div class="flex justify-between text-[11px] font-mono text-slate-400 mb-1.5">
+                <span>Curva de Proyección Trimestral (Q1 - Q4)</span>
+                <span class="text-brand-cyan">DAX + Python Forecast</span>
+              </div>
+              <svg viewBox="0 0 400 75" class="w-full h-16 overflow-visible">
+                <defs>
+                  <linearGradient id="areaFill" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="#38BDF8" stop-opacity="0.32" />
+                    <stop offset="100%" stop-color="#38BDF8" stop-opacity="0.0" />
+                  </linearGradient>
+                </defs>
+                <path id="chartArea" d="" fill="url(#areaFill)" />
+                <path id="chartPath" d="" fill="none" stroke="#38BDF8" stroke-width="3" stroke-linecap="round" />
+                <g id="chartNodes"></g>
+              </svg>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- SOBRE MÍ (CON TU FOTOGRAFÍA DE PERFIL AGREGADA) -->
+  <section id="about" class="py-24 bg-[#0D1323] border-y border-slate-800/80">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid lg:grid-cols-12 gap-12 items-start">
+        
+        <!-- COLUMNA IZQUIERDA: FOTO DE PERFIL + BIO -->
+        <div class="lg:col-span-5 space-y-6">
+          <div class="relative w-44 h-44 sm:w-52 sm:h-52 rounded-2xl overflow-hidden border-2 border-brand-cyan/50 shadow-xl shadow-cyan-500/10 bg-slate-900">
+            <img src="./assets/perfil.jpg" alt="José de Jesús Arias Durán" class="w-full h-full object-cover" />
+          </div>
+
+          <div class="inline-flex items-center gap-2 text-xs font-mono font-semibold uppercase tracking-widest text-brand-cyan">
+            <span class="w-8 h-px bg-current"></span>
+            <span data-i18n="about_kicker">Sobre Mí</span>
+          </div>
+
+          <h2 class="text-3xl sm:text-4xl font-bold tracking-tight text-white" data-i18n="about_title">
+            Ingeniería de procesos + Ciencia de Datos aplicada al negocio.
+          </h2>
+
+          <p class="text-slate-400 leading-relaxed" data-i18n="about_p1">
+            Soy Ingeniero Industrial y de Sistemas (ITSON) con especialización intensiva en Data Science & Business Analytics (TripleTen LatAm). Tras más de una década liderando operaciones técnicas, inventarios y posventa en marcas globales (Nissan, Honda, New Holland), construyo el puente entre los datos crudos y las decisiones directivas.
+          </p>
+
+          <p class="text-slate-400 leading-relaxed" data-i18n="about_p2">
+            Mi enfoque evita los modelos aislados: diseño arquitecturas dimensionales, pipelines automatizados y tableros ejecutivos que responden directamente a métricas de rentabilidad, retención y capacidad instalada.
+          </p>
+        </div>
+
+        <!-- COLUMNA DERECHA: TRAYECTORIA & TECH STACK -->
+        <div class="lg:col-span-7 space-y-6">
+          <div class="grid sm:grid-cols-2 gap-4">
+            <div class="card-hover rounded-2xl p-6">
+              <div class="w-10 h-10 rounded-lg bg-sky-500/10 text-brand-cyan flex items-center justify-center mb-4">
+                <i class="fa-solid fa-chart-pie text-lg"></i>
+              </div>
+              <h3 class="font-bold text-white mb-2">Business Intelligence & KPI</h3>
+              <p class="text-sm text-slate-400">Modelado dimensional (Star Schema), medidas avanzadas en DAX, Power Query, SQL y dashboards ejecutivos en Power BI.</p>
+            </div>
+
+            <div class="card-hover rounded-2xl p-6">
+              <div class="w-10 h-10 rounded-lg bg-indigo-500/10 text-brand-indigo flex items-center justify-center mb-4">
+                <i class="fa-solid fa-brain text-lg"></i>
+              </div>
+              <h3 class="font-bold text-white mb-2">Machine Learning & GenAI</h3>
+              <p class="text-sm text-slate-400">Modelos predictivos (XGBoost, LightGBM), series temporales, web scraping automatizado y extracción NLP con Gemini AI.</p>
+            </div>
+
+            <div class="card-hover rounded-2xl p-6">
+              <div class="w-10 h-10 rounded-lg bg
