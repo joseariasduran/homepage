@@ -1,0 +1,1726 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>José de Jesús Arias Durán | Executive BI &amp; Data Science Command Center</title>
+  <meta name="description" content="Portafolio interactivo de José de Jesús Arias Durán - Business Intelligence Analyst, Data Scientist e Ingeniero Industrial y de Sistemas." />
+
+  <!-- Tailwind CSS via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Fonts: Inter & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <!-- Tailwind Custom Configuration -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+          colors: {
+            cmdBg: '#090D16',
+            cmdSurface: '#0D1117',
+            cmdCard: '#161B22',
+            neonSky: '#38BDF8',
+            neonEmerald: '#10B981',
+            neonIndigo: '#818CF8',
+          }
+        }
+      }
+    };
+  </script>
+
+  <style>
+    /* Custom Glassmorphism & Executive Dark UI Styles */
+    body {
+      background-color: #090D16;
+      color: #E2E8F0;
+    }
+
+    .glass-panel {
+      background: rgba(15, 23, 42, 0.72);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(56, 189, 248, 0.18);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+    }
+
+    .glass-card-light {
+      background: rgba(255, 255, 255, 0.96);
+      backdrop-filter: blur(12px);
+      border: 1px solid #E2E8F0;
+    }
+
+    /* Animated Typewriter Cursor */
+    .cursor-blink {
+      display: inline-block;
+      width: 2px;
+      height: 1.1em;
+      background-color: #38BDF8;
+      margin-left: 4px;
+      vertical-align: middle;
+      animation: blink 0.9s infinite;
+    }
+
+    @keyframes blink {
+      0%, 49% { opacity: 1; }
+      50%, 100% { opacity: 0; }
+    }
+
+    /* Custom Range Slider for Hero Simulator */
+    input[type="range"].cmd-slider {
+      -webkit-appearance: none;
+      appearance: none;
+      background: transparent;
+      cursor: pointer;
+    }
+    input[type="range"].cmd-slider::-webkit-slider-runnable-track {
+      height: 6px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #0EA5E9 0%, #10B981 100%);
+    }
+    input[type="range"].cmd-slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      margin-top: -6px;
+      background-color: #F8FAFC;
+      border: 3px solid #38BDF8;
+      height: 18px;
+      width: 18px;
+      border-radius: 999px;
+      box-shadow: 0 0 12px rgba(56, 189, 248, 0.8);
+      transition: transform 0.15s ease;
+    }
+    input[type="range"].cmd-slider::-webkit-slider-thumb:hover {
+      transform: scale(1.18);
+    }
+
+    /* Smooth SVG path transitions */
+    #sim-sparkline-path, #sim-area-path {
+      transition: d 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .modal-backdrop {
+      transition: opacity 0.25s ease;
+    }
+    .modal-panel {
+      transition: transform 0.25s ease, opacity 0.25s ease;
+    }
+  </style>
+</head>
+<body class="font-sans antialiased selection:bg-sky-400 selection:text-slate-950 overflow-x-hidden">
+
+  <!-- ===================================================================== -->
+  <!-- STICKY EXECUTIVE NAVIGATION BAR                                       -->
+  <!-- ===================================================================== -->
+  <header id="navbar" class="fixed top-0 inset-x-0 z-40 bg-[#090D16]/85 backdrop-blur-md border-b border-slate-800/80 transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        <!-- Brand / Monogram -->
+        <a href="#hero" class="flex items-center gap-3 group">
+          <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-sky-500 via-emerald-400 to-indigo-500 p-[1.5px] shadow-lg shadow-sky-500/20 group-hover:scale-105 transition-transform">
+            <div class="w-full h-full rounded-[10px] bg-[#090D16] flex items-center justify-center text-white font-extrabold text-sm tracking-tighter">
+              JA<span class="text-sky-400">.</span>
+            </div>
+          </div>
+          <div class="flex flex-col">
+            <span class="text-white font-bold tracking-tight text-sm sm:text-base leading-none">
+              José Arias <span class="text-sky-400 font-normal">Durán</span>
+            </span>
+            <span class="text-[10px] font-mono text-slate-400 tracking-widest uppercase mt-0.5 hidden sm:inline">
+              BI &amp; Data Science
+            </span>
+          </div>
+        </a>
+
+        <!-- Desktop Navigation Links -->
+        <nav class="hidden md:flex items-center gap-7 text-sm font-medium text-slate-300">
+          <a href="#hero" class="hover:text-sky-400 transition-colors" data-i18n="nav_cmd">Command Center</a>
+          <a href="#about" class="hover:text-sky-400 transition-colors" data-i18n="nav_about">Trayectoria</a>
+          <a href="#services" class="hover:text-sky-400 transition-colors" data-i18n="nav_services">Capacidades</a>
+          <a href="#portfolio" class="hover:text-sky-400 transition-colors" data-i18n="nav_portfolio">Portafolio</a>
+          <a href="#contact" class="hover:text-sky-400 transition-colors" data-i18n="nav_contact">Contacto</a>
+        </nav>
+
+        <!-- Right Controls: Language Toggle & Mobile Menu Button -->
+        <div class="flex items-center gap-3">
+          <div class="inline-flex items-center rounded-lg bg-slate-900 p-1 border border-slate-700/80">
+            <button id="btn-lang-es" onclick="setLanguage('es')" class="px-2.5 py-1 text-xs font-mono font-bold rounded-md bg-sky-500 text-slate-950 transition-all">
+              ESP
+            </button>
+            <button id="btn-lang-en" onclick="setLanguage('en')" class="px-2.5 py-1 text-xs font-mono font-bold rounded-md text-slate-400 hover:text-white transition-all">
+              ENG
+            </button>
+          </div>
+
+          <!-- Mobile Hamburger Button -->
+          <button id="mobile-menu-btn" aria-label="Abrir menú" class="md:hidden p-2 rounded-lg text-slate-300 hover:text-white hover:bg-slate-800 transition-colors">
+            <i class="fa-solid fa-bars text-lg"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile Dropdown Menu -->
+    <div id="mobile-menu" class="hidden md:hidden bg-[#0D1117] border-b border-slate-800 px-4 pt-2 pb-4 space-y-1.5">
+      <a href="#hero" onclick="closeMobileMenu()" class="block px-3 py-2 rounded-lg text-slate-200 hover:bg-slate-800 hover:text-sky-400 font-medium text-sm" data-i18n="nav_cmd">Command Center</a>
+      <a href="#about" onclick="closeMobileMenu()" class="block px-3 py-2 rounded-lg text-slate-200 hover:bg-slate-800 hover:text-sky-400 font-medium text-sm" data-i18n="nav_about">Trayectoria</a>
+      <a href="#services" onclick="closeMobileMenu()" class="block px-3 py-2 rounded-lg text-slate-200 hover:bg-slate-800 hover:text-sky-400 font-medium text-sm" data-i18n="nav_services">Capacidades</a>
+      <a href="#portfolio" onclick="closeMobileMenu()" class="block px-3 py-2 rounded-lg text-slate-200 hover:bg-slate-800 hover:text-sky-400 font-medium text-sm" data-i18n="nav_portfolio">Portafolio</a>
+      <a href="#contact" onclick="closeMobileMenu()" class="block px-3 py-2 rounded-lg text-slate-200 hover:bg-slate-800 hover:text-sky-400 font-medium text-sm" data-i18n="nav_contact">Contacto</a>
+    </div>
+  </header>
+
+  <!-- ===================================================================== -->
+  <!-- HERO SECTION: INTERACTIVE DATA COMMAND CENTER                         -->
+  <!-- ===================================================================== -->
+  <section id="hero" class="relative min-h-screen flex items-center pt-20 pb-14 px-4 sm:px-6 lg:px-8 overflow-hidden bg-[#090D16]">
+    <!-- Interactive HTML5 Particle / Data Pipeline Canvas -->
+    <canvas id="data-network-canvas" class="absolute inset-0 w-full h-full pointer-events-auto z-0"></canvas>
+
+    <!-- Subtle Ambient Radial Glows -->
+    <div class="absolute top-1/4 -left-24 w-96 h-96 bg-sky-500/10 rounded-full blur-3xl pointer-events-none"></div>
+    <div class="absolute bottom-10 -right-24 w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+    <div class="max-w-7xl mx-auto w-full relative z-10 pointer-events-none">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8 items-center">
+
+        <!-- LEFT COLUMN (7 cols): Executive Identity, Typewriter & CTAs -->
+        <div class="lg:col-span-7 text-left pointer-events-auto">
+          <!-- Status Telemetry Pill -->
+          <div class="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-slate-900/90 border border-slate-700/80 text-xs font-mono text-emerald-400 mb-6 shadow-md">
+            <span class="relative flex h-2.5 w-2.5">
+              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+              <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
+            </span>
+            <span data-i18n="hero_badge">ONLINE • DISPONIBLE PARA ROLES REMOTOS BI &amp; DATA SCIENCE</span>
+          </div>
+
+          <!-- Name & Headline -->
+          <h1 class="text-4xl sm:text-5xl xl:text-6xl font-black text-white tracking-tight leading-[1.1] mb-4">
+            José de Jesús <br class="hidden sm:inline" />
+            <span class="text-transparent bg-clip-text bg-gradient-to-r from-sky-400 via-emerald-400 to-indigo-400">
+              Arias Durán
+            </span>
+          </h1>
+
+          <!-- Animated Typewriter Role Line -->
+          <div class="h-9 sm:h-10 flex items-center mb-5">
+            <span class="text-xs sm:text-sm font-mono text-sky-400 mr-2.5">&gt;_</span>
+            <span id="typewriter-text" class="text-lg sm:text-2xl font-bold text-slate-200 font-mono tracking-tight"></span>
+            <span class="cursor-blink"></span>
+          </div>
+
+          <!-- Executive Value Proposition -->
+          <p class="text-sm sm:text-base text-slate-300/90 max-w-2xl leading-relaxed mb-7" data-i18n="hero_tagline">
+            Ingeniero Industrial y de Sistemas con <strong>+10 años de liderazgo operacional</strong> en Nissan, Honda y New Holland. Transformo datos complejos en <strong>arquitecturas de BI, tableros ejecutivos y modelos predictivos</strong> que maximizan rentabilidad, retención y capacidad operativa.
+          </p>
+
+          <!-- Interactive Canvas Hint + Social Icons -->
+          <div class="flex flex-wrap items-center gap-4 mb-8">
+            <div class="flex items-center gap-2.5">
+              <a href="https://linkedin.com/in/joseariasduran" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" class="w-10 h-10 rounded-xl bg-slate-900/90 hover:bg-sky-500 text-slate-300 hover:text-slate-950 border border-slate-700/80 flex items-center justify-center text-base transition-all shadow-sm">
+                <i class="fa-brands fa-linkedin-in"></i>
+              </a>
+              <a href="https://github.com/joseariasduran" target="_blank" rel="noopener noreferrer" aria-label="GitHub" class="w-10 h-10 rounded-xl bg-slate-900/90 hover:bg-white text-slate-300 hover:text-slate-950 border border-slate-700/80 flex items-center justify-center text-base transition-all shadow-sm">
+                <i class="fa-brands fa-github"></i>
+              </a>
+              <a href="mailto:jose.aduran@live.com" aria-label="Email" class="w-10 h-10 rounded-xl bg-slate-900/90 hover:bg-emerald-400 text-slate-300 hover:text-slate-950 border border-slate-700/80 flex items-center justify-center text-base transition-all shadow-sm">
+                <i class="fa-solid fa-envelope"></i>
+              </a>
+            </div>
+
+            <span class="hidden sm:inline-block h-5 w-[1px] bg-slate-800"></span>
+
+            <span class="text-[11px] font-mono text-slate-400 flex items-center gap-1.5">
+              <i class="fa-solid fa-wand-magic-sparkles text-sky-400"></i>
+              <span data-i18n="canvas_hint">Mueve el cursor o haz clic en el fondo para interactuar con la red neuronal</span>
+            </span>
+          </div>
+
+          <!-- Primary & Secondary CTA Buttons -->
+          <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5">
+            <a href="#portfolio" class="px-6 py-3.5 rounded-xl bg-gradient-to-r from-sky-500 to-emerald-400 hover:from-sky-400 hover:to-emerald-300 text-slate-950 font-bold text-sm shadow-lg shadow-sky-500/20 transition-all flex items-center justify-center gap-2">
+              <i class="fa-solid fa-chart-line"></i>
+              <span data-i18n="cta_projects">Explorar Casos de Estudio</span>
+            </a>
+            <a href="#contact" class="px-6 py-3.5 rounded-xl bg-slate-900/90 hover:bg-slate-800 text-white font-semibold text-sm border border-slate-700 transition-all flex items-center justify-center gap-2">
+              <i class="fa-solid fa-paper-plane text-sky-400"></i>
+              <span data-i18n="cta_contact">Agendar Conversación</span>
+            </a>
+            <button onclick="triggerCvDownload()" class="px-5 py-3.5 rounded-xl bg-slate-900/60 hover:bg-slate-800 text-slate-300 hover:text-white font-mono font-semibold text-xs border border-slate-800 transition-all flex items-center justify-center gap-2">
+              <i class="fa-solid fa-file-arrow-down text-emerald-400"></i>
+              <span data-i18n="cta_cv">CV.pdf</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- RIGHT COLUMN (5 cols): LIVE EXECUTIVE BI & PREDICTIVE SIMULATOR -->
+        <div class="lg:col-span-5 pointer-events-auto">
+          <div class="glass-panel rounded-2xl p-5 sm:p-6 relative overflow-hidden">
+            <!-- Top Window Bar -->
+            <div class="flex items-center justify-between pb-4 mb-4 border-b border-slate-800">
+              <div class="flex items-center gap-2">
+                <span class="w-2.5 h-2.5 rounded-full bg-rose-500"></span>
+                <span class="w-2.5 h-2.5 rounded-full bg-amber-400"></span>
+                <span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span>
+                <span class="ml-2 text-[11px] font-mono font-semibold text-slate-300 tracking-wider uppercase" data-i18n="sim_header">
+                  SIMULADOR PREDICTIVO EN VIVO
+                </span>
+              </div>
+              <span class="px-2 py-0.5 rounded bg-sky-500/10 border border-sky-500/30 text-sky-400 font-mono text-[10px] font-bold">
+                LIVE MODEL v2.6
+              </span>
+            </div>
+
+            <!-- Scenario Selector Tabs -->
+            <div class="grid grid-cols-3 gap-1.5 bg-slate-950/80 p-1 rounded-xl border border-slate-800 mb-5">
+              <button onclick="setSimScenario('churn')" id="sim-tab-churn" class="sim-tab px-2 py-2 rounded-lg text-[11px] font-semibold bg-sky-500 text-slate-950 transition-all truncate" data-i18n="sim_tab_churn">
+                Churn Automotriz
+              </button>
+              <button onclick="setSimScenario('noshow')" id="sim-tab-noshow" class="sim-tab px-2 py-2 rounded-lg text-[11px] font-semibold text-slate-400 hover:text-white transition-all truncate" data-i18n="sim_tab_noshow">
+                Capacidad Médica
+              </button>
+              <button onclick="setSimScenario('b2b')" id="sim-tab-b2b" class="sim-tab px-2 py-2 rounded-lg text-[11px] font-semibold text-slate-400 hover:text-white transition-all truncate" data-i18n="sim_tab_b2b">
+                Leads B2B &amp; IA
+              </button>
+            </div>
+
+            <!-- Active Scenario Context -->
+            <div class="flex items-center justify-between mb-3">
+              <div>
+                <div id="sim-model-badge" class="text-[11px] font-mono text-emerald-400 font-semibold">
+                  XGBoost Classifier • 88% Accuracy
+                </div>
+                <h2 id="sim-title" class="text-sm sm:text-base font-bold text-white">
+                  Retención Posventa Automotriz
+                </h2>
+              </div>
+              <!-- Circular SVG Radial Gauge -->
+              <div class="relative w-14 h-14 flex items-center justify-center">
+                <svg class="w-14 h-14 -rotate-90" viewBox="0 0 36 36">
+                  <path class="text-slate-800" stroke-width="3.5" stroke="currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                  <path id="sim-gauge-ring" class="text-emerald-400 transition-all duration-300" stroke-dasharray="78, 100" stroke-width="3.5" stroke-linecap="round" stroke="currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                </svg>
+                <span id="sim-gauge-text" class="absolute text-[11px] font-mono font-bold text-white">78%</span>
+              </div>
+            </div>
+
+            <!-- Interactive Parameter Slider -->
+            <div class="bg-slate-950/60 border border-slate-800/90 rounded-xl p-3.5 mb-4">
+              <div class="flex items-center justify-between text-xs mb-2">
+                <span id="sim-slider-label" class="text-slate-300 font-medium">Nivel de Intervención Analítica</span>
+                <span id="sim-slider-val" class="font-mono font-bold text-sky-400 bg-sky-500/10 px-2 py-0.5 rounded">65%</span>
+              </div>
+              <input id="sim-slider" type="range" min="15" max="100" value="65" oninput="updateSimulator()" class="cmd-slider w-full" />
+              <div class="flex justify-between text-[10px] font-mono text-slate-500 mt-1">
+                <span>Baseline (15%)</span>
+                <span>Optimal BI + ML (100%)</span>
+              </div>
+            </div>
+
+            <!-- Real-Time Recalculated KPI Cards -->
+            <div class="grid grid-cols-3 gap-2.5 mb-4">
+              <div class="bg-slate-900/90 border border-slate-800 rounded-xl p-2.5">
+                <div id="sim-kpi1-label" class="text-[10px] font-mono text-slate-400 truncate">ROI Proyectado</div>
+                <div id="sim-kpi1-val" class="text-sm sm:text-base font-extrabold text-emerald-400 font-mono mt-0.5">+$142K</div>
+              </div>
+              <div class="bg-slate-900/90 border border-slate-800 rounded-xl p-2.5">
+                <div id="sim-kpi2-label" class="text-[10px] font-mono text-slate-400 truncate">Reducción Churn</div>
+                <div id="sim-kpi2-val" class="text-sm sm:text-base font-extrabold text-sky-400 font-mono mt-0.5">-24.5%</div>
+              </div>
+              <div class="bg-slate-900/90 border border-slate-800 rounded-xl p-2.5">
+                <div id="sim-kpi3-label" class="text-[10px] font-mono text-slate-400 truncate">Eficiencia KPI</div>
+                <div id="sim-kpi3-val" class="text-sm sm:text-base font-extrabold text-indigo-400 font-mono mt-0.5">94.2%</div>
+              </div>
+            </div>
+
+            <!-- Dynamic SVG Trend Sparkline Chart -->
+            <div class="bg-slate-950/70 border border-slate-800/80 rounded-xl p-3">
+              <div class="flex items-center justify-between text-[10px] font-mono text-slate-400 mb-1.5">
+                <span data-i18n="sim_chart_title">PROYECCIÓN TRIMESTRAL DE IMPACTO (Q1 - Q4)</span>
+                <span class="text-emerald-400 flex items-center gap-1">
+                  <i class="fa-solid fa-arrow-trend-up"></i> <span id="sim-lift-badge">+31.4%</span>
+                </span>
+              </div>
+              <svg viewBox="0 0 320 72" class="w-full h-16 overflow-visible">
+                <defs>
+                  <linearGradient id="simGrad" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="#38BDF8" stop-opacity="0.35" />
+                    <stop offset="100%" stop-color="#38BDF8" stop-opacity="0.0" />
+                  </linearGradient>
+                </defs>
+                <!-- Subtle horizontal grid lines -->
+                <line x1="0" y1="18" x2="320" y2="18" stroke="#1E293B" stroke-width="1" stroke-dasharray="3 3" />
+                <line x1="0" y1="45" x2="320" y2="45" stroke="#1E293B" stroke-width="1" stroke-dasharray="3 3" />
+                <!-- Dynamic Area & Line -->
+                <path id="sim-area-path" d="M 0 60 L 64 52 L 128 44 L 192 32 L 256 20 L 320 10 L 320 72 L 0 72 Z" fill="url(#simGrad)" />
+                <path id="sim-sparkline-path" d="M 0 60 L 64 52 L 128 44 L 192 32 L 256 20 L 320 10" fill="none" stroke="#38BDF8" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================================== -->
+  <!-- ABOUT & 10+ YEARS OPERATIONAL LEADERSHIP TIMELINE                     -->
+  <!-- ===================================================================== -->
+  <section id="about" class="py-20 sm:py-24 bg-slate-50 text-slate-800 border-b border-slate-200">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <!-- Section Header -->
+      <div class="text-center max-w-2xl mx-auto mb-16">
+        <span class="text-xs font-mono font-bold uppercase tracking-widest text-sky-600" data-i18n="about_kicker">Diferenciador Ejecutivo</span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 mt-2 tracking-tight" data-i18n="about_title">Trayectoria &amp; Liderazgo Operacional</h2>
+        <div class="w-16 h-1 bg-gradient-to-r from-sky-500 to-emerald-400 mx-auto mt-4 rounded-full"></div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+        <!-- Left Column: Profile Card & Core Metrics -->
+        <div class="lg:col-span-5 flex flex-col items-center">
+          <div class="w-full max-w-sm bg-white rounded-2xl p-5 shadow-xl border border-slate-200">
+            <div class="relative aspect-square rounded-xl overflow-hidden bg-slate-900 mb-5">
+              <!-- Replace with ./assets/profile.jpg when uploading your photo -->
+              <img
+                src="https://placehold.co/500x500/0D1117/38BDF8?text=Jos%C3%A9+Arias+Dur%C3%A1n"
+                onerror="this.src='https://placehold.co/500x500/0D1117/38BDF8?text=JA'"
+                alt="José de Jesús Arias Durán"
+                class="w-full h-full object-cover"
+              />
+              <div class="absolute bottom-3 inset-x-3 bg-slate-900/90 backdrop-blur-md border border-slate-700 rounded-lg px-3 py-2 flex items-center justify-between">
+                <span class="text-xs font-semibold text-white">Guasave, Sinaloa, MX</span>
+                <span class="text-[11px] font-mono text-emerald-400 font-bold">100% REMOTE</span>
+              </div>
+            </div>
+
+            <!-- 3 Key Metrics -->
+            <div class="grid grid-cols-3 gap-2.5 text-center">
+              <div class="bg-slate-50 border border-slate-200/80 rounded-xl p-2.5">
+                <div class="text-xl font-black text-slate-900">10+</div>
+                <div class="text-[10px] font-semibold text-slate-500 uppercase" data-i18n="stat_exp">Años Ops</div>
+              </div>
+              <div class="bg-slate-50 border border-slate-200/80 rounded-xl p-2.5">
+                <div class="text-xl font-black text-sky-600">BI+ML</div>
+                <div class="text-[10px] font-semibold text-slate-500 uppercase" data-i18n="stat_focus">Stack Dual</div>
+              </div>
+              <div class="bg-slate-50 border border-slate-200/80 rounded-xl p-2.5">
+                <div class="text-xl font-black text-emerald-600">3</div>
+                <div class="text-[10px] font-semibold text-slate-500 uppercase" data-i18n="stat_brands">Marcas Global</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Column: Narrative & Interactive Experience/Education Timeline -->
+        <div class="lg:col-span-7 space-y-6">
+          <h3 class="text-2xl font-bold text-slate-900 leading-snug" data-i18n="about_heading">
+            No solo construyo modelos y dashboards: entiendo la operación que genera los datos
+          </h3>
+          <p class="text-slate-600 leading-relaxed text-sm sm:text-base" data-i18n="about_p1">
+            Como <strong>Ingeniero Industrial y de Sistemas</strong> con más de una década dirigiendo operaciones técnicas, inventarios, garantías y posventa en los sectores automotriz, motocicletas y maquinaria agrícola, traduje cada indicador operativo en resultados financieros tangibles. Hoy combino esa experiencia de campo con <strong>Business Intelligence, Machine Learning e IA Generativa</strong> para construir soluciones analíticas que los directivos realmente utilizan.
+          </p>
+
+          <!-- Timeline Cards -->
+          <div class="space-y-4 pt-2">
+            <!-- Item 1: Operational Leadership -->
+            <div class="bg-white rounded-xl p-5 border border-slate-200 shadow-sm hover:border-sky-400 transition-colors flex gap-4">
+              <div class="w-11 h-11 rounded-xl bg-sky-50 text-sky-600 flex items-center justify-center text-lg shrink-0">
+                <i class="fa-solid fa-industry"></i>
+              </div>
+              <div>
+                <div class="flex flex-wrap items-center gap-2 mb-1">
+                  <h4 class="font-bold text-slate-900 text-sm sm:text-base" data-i18n="tl1_title">Liderazgo Operacional &amp; Analítica Posventa (+10 Años)</h4>
+                  <span class="px-2 py-0.5 rounded bg-slate-100 text-slate-600 font-mono text-[11px] font-semibold">Nissan • Honda • New Holland</span>
+                </div>
+                <p class="text-xs sm:text-sm text-slate-600 leading-relaxed" data-i18n="tl1_desc">
+                  Gestión integral de operaciones de servicio, control de inventarios de refacciones, administración de garantías, KPIs de rentabilidad de taller y retención de clientes (Churn &amp; LTV).
+                </p>
+              </div>
+            </div>
+
+            <!-- Item 2: Data Science & AI Specialization -->
+            <div class="bg-white rounded-xl p-5 border border-slate-200 shadow-sm hover:border-emerald-400 transition-colors flex gap-4">
+              <div class="w-11 h-11 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-lg shrink-0">
+                <i class="fa-solid fa-code-branch"></i>
+              </div>
+              <div>
+                <div class="flex flex-wrap items-center gap-2 mb-1">
+                  <h4 class="font-bold text-slate-900 text-sm sm:text-base" data-i18n="tl2_title">Especialización en Data Science, BI &amp; GenAI</h4>
+                  <span class="px-2 py-0.5 rounded bg-emerald-50 text-emerald-700 font-mono text-[11px] font-semibold">TripleTen LatAm &amp; Google Developer Program</span>
+                </div>
+                <p class="text-xs sm:text-sm text-slate-600 leading-relaxed" data-i18n="tl2_desc">
+                  Desarrollo de modelos predictivos (XGBoost, LightGBM), series temporales, simulación estadística (Bootstrapping), arquitecturas en Power BI/DAX y pipelines de NLP con Gemini AI.
+                </p>
+              </div>
+            </div>
+
+            <!-- Item 3: Industrial Engineering Degree -->
+            <div class="bg-white rounded-xl p-5 border border-slate-200 shadow-sm hover:border-indigo-400 transition-colors flex gap-4">
+              <div class="w-11 h-11 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center text-lg shrink-0">
+                <i class="fa-solid fa-graduation-cap"></i>
+              </div>
+              <div>
+                <div class="flex flex-wrap items-center gap-2 mb-1">
+                  <h4 class="font-bold text-slate-900 text-sm sm:text-base" data-i18n="tl3_title">Ingeniero Industrial y de Sistemas</h4>
+                  <span class="px-2 py-0.5 rounded bg-indigo-50 text-indigo-700 font-mono text-[11px] font-semibold">ITSON (Instituto Tecnológico de Sonora)</span>
+                </div>
+                <p class="text-xs sm:text-sm text-slate-600 leading-relaxed" data-i18n="tl3_desc">
+                  Formación en optimización de procesos, investigación de operaciones, control estadístico de calidad, diseño de sistemas de información y toma de decisiones basada en datos.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================================== -->
+  <!-- INTERACTIVE SERVICES / CAPABILITIES (4 Pillars + Detail Modals)       -->
+  <!-- ===================================================================== -->
+  <section id="services" class="py-20 sm:py-24 bg-[#0D1117] text-white border-b border-slate-800">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-2xl mx-auto mb-16">
+        <span class="text-xs font-mono font-bold uppercase tracking-widest text-sky-400" data-i18n="services_kicker">Capacidades &amp; Soluciones</span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold mt-2 tracking-tight" data-i18n="services_title">¿Cómo impulso tu estrategia de datos?</h2>
+        <p class="text-slate-400 mt-3 text-sm sm:text-base" data-i18n="services_subtitle">
+          Selecciona cualquier módulo para inspeccionar los entregables técnicos, metodologías y herramientas de implementación.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <!-- Capability 1 -->
+        <div onclick="openServiceModal('bi')" class="group cursor-pointer bg-slate-900/90 hover:bg-slate-800/90 rounded-2xl p-6 border border-slate-800 hover:border-sky-500/60 transition-all duration-300 flex flex-col justify-between">
+          <div>
+            <div class="w-12 h-12 rounded-xl bg-sky-500/10 text-sky-400 flex items-center justify-center text-xl mb-5 group-hover:scale-110 transition-transform">
+              <i class="fa-solid fa-chart-pie"></i>
+            </div>
+            <h3 class="text-lg font-bold text-white mb-2.5" data-i18n="srv1_title">Arquitectura BI &amp; Power BI</h3>
+            <p class="text-slate-400 text-xs sm:text-sm leading-relaxed mb-5" data-i18n="srv1_desc">
+              Modelado dimensional (Star Schema), ETL con Power Query/SQL, medidas DAX avanzadas y tableros ejecutivos de alto impacto.
+            </p>
+          </div>
+          <span class="inline-flex items-center text-xs font-mono font-bold text-sky-400 group-hover:translate-x-1 transition-transform">
+            <span data-i18n="srv_more">Inspeccionar</span> <i class="fa-solid fa-arrow-right ml-1.5"></i>
+          </span>
+        </div>
+
+        <!-- Capability 2 -->
+        <div onclick="openServiceModal('ds')" class="group cursor-pointer bg-slate-900/90 hover:bg-slate-800/90 rounded-2xl p-6 border border-slate-800 hover:border-emerald-500/60 transition-all duration-300 flex flex-col justify-between">
+          <div>
+            <div class="w-12 h-12 rounded-xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center text-xl mb-5 group-hover:scale-110 transition-transform">
+              <i class="fa-solid fa-brain"></i>
+            </div>
+            <h3 class="text-lg font-bold text-white mb-2.5" data-i18n="srv2_title">Data Science &amp; ML Predictivo</h3>
+            <p class="text-slate-400 text-xs sm:text-sm leading-relaxed mb-5" data-i18n="srv2_desc">
+              Modelos de Churn, forecasting de demanda con series temporales (XGBoost, LightGBM) y simulación estadística de riesgos.
+            </p>
+          </div>
+          <span class="inline-flex items-center text-xs font-mono font-bold text-emerald-400 group-hover:translate-x-1 transition-transform">
+            <span data-i18n="srv_more">Inspeccionar</span> <i class="fa-solid fa-arrow-right ml-1.5"></i>
+          </span>
+        </div>
+
+        <!-- Capability 3 -->
+        <div onclick="openServiceModal('ai')" class="group cursor-pointer bg-slate-900/90 hover:bg-slate-800/90 rounded-2xl p-6 border border-slate-800 hover:border-purple-500/60 transition-all duration-300 flex flex-col justify-between">
+          <div>
+            <div class="w-12 h-12 rounded-xl bg-purple-500/10 text-purple-400 flex items-center justify-center text-xl mb-5 group-hover:scale-110 transition-transform">
+              <i class="fa-solid fa-robot"></i>
+            </div>
+            <h3 class="text-lg font-bold text-white mb-2.5" data-i18n="srv3_title">IA Comercial &amp; NLP</h3>
+            <p class="text-slate-400 text-xs sm:text-sm leading-relaxed mb-5" data-i18n="srv3_desc">
+              Web scraping automatizado, análisis de sentimientos y extracción de dolor de clientes B2B impulsado por LLMs (Gemini AI).
+            </p>
+          </div>
+          <span class="inline-flex items-center text-xs font-mono font-bold text-purple-400 group-hover:translate-x-1 transition-transform">
+            <span data-i18n="srv_more">Inspeccionar</span> <i class="fa-solid fa-arrow-right ml-1.5"></i>
+          </span>
+        </div>
+
+        <!-- Capability 4 -->
+        <div onclick="openServiceModal('ops')" class="group cursor-pointer bg-slate-900/90 hover:bg-slate-800/90 rounded-2xl p-6 border border-slate-800 hover:border-indigo-500/60 transition-all duration-300 flex flex-col justify-between">
+          <div>
+            <div class="w-12 h-12 rounded-xl bg-indigo-500/10 text-indigo-400 flex items-center justify-center text-xl mb-5 group-hover:scale-110 transition-transform">
+              <i class="fa-solid fa-gears"></i>
+            </div>
+            <h3 class="text-lg font-bold text-white mb-2.5" data-i18n="srv4_title">Analítica Operativa &amp; Apps</h3>
+            <p class="text-slate-400 text-xs sm:text-sm leading-relaxed mb-5" data-i18n="srv4_desc">
+              Optimización de inventarios, KPIs de taller/posventa y simuladores interactivos desplegados en Streamlit y FastAPI.
+            </p>
+          </div>
+          <span class="inline-flex items-center text-xs font-mono font-bold text-indigo-400 group-hover:translate-x-1 transition-transform">
+            <span data-i18n="srv_more">Inspeccionar</span> <i class="fa-solid fa-arrow-right ml-1.5"></i>
+          </span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================================== -->
+  <!-- INTERACTIVE PORTFOLIO SHOWCASE (Filterable + Case Study Modals)       -->
+  <!-- ===================================================================== -->
+  <section id="portfolio" class="py-20 sm:py-24 bg-white text-slate-800 border-b border-slate-200">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-2xl mx-auto mb-10">
+        <span class="text-xs font-mono font-bold uppercase tracking-widest text-sky-600" data-i18n="port_kicker">Casos de Estudio</span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 mt-2 tracking-tight" data-i18n="port_title">Portafolio de Proyectos</h2>
+        <p class="text-slate-600 mt-3 text-sm sm:text-base" data-i18n="port_subtitle">
+          Filtra por especialidad o haz clic en un proyecto para explorar el problema de negocio, arquitectura técnica e impacto medible.
+        </p>
+      </div>
+
+      <!-- Category Filter Tabs -->
+      <div class="flex flex-wrap items-center justify-center gap-2 sm:gap-3 mb-12">
+        <button onclick="filterProjects('all')" data-filter="all" class="filter-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-bold bg-slate-900 text-white shadow-sm transition-all" data-i18n="filter_all">
+          Todos (6)
+        </button>
+        <button onclick="filterProjects('bi')" data-filter="bi" class="filter-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-bold bg-slate-100 text-slate-600 hover:bg-slate-200 transition-all" data-i18n="filter_bi">
+          Business Intelligence
+        </button>
+        <button onclick="filterProjects('ml')" data-filter="ml" class="filter-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-bold bg-slate-100 text-slate-600 hover:bg-slate-200 transition-all" data-i18n="filter_ml">
+          Machine Learning
+        </button>
+        <button onclick="filterProjects('ai')" data-filter="ai" class="filter-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-bold bg-slate-100 text-slate-600 hover:bg-slate-200 transition-all" data-i18n="filter_ai">
+          GenAI &amp; Automation
+        </button>
+      </div>
+
+      <!-- Projects Grid -->
+      <div id="projects-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- Injected dynamically via renderProjects() -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================================== -->
+  <!-- TECH STACK MATRIX SECTION                                             -->
+  <!-- ===================================================================== -->
+  <section id="stack" class="py-16 sm:py-20 bg-slate-50 text-slate-800 border-b border-slate-200">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-2xl mx-auto mb-12">
+        <span class="text-xs font-mono font-bold uppercase tracking-widest text-emerald-600" data-i18n="stack_kicker">Ecosistema Técnico</span>
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 mt-1.5 tracking-tight" data-i18n="stack_title">Tech Stack Matrix</h2>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <!-- Group 1: BI & Visualization -->
+        <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm">
+          <div class="flex items-center gap-2.5 mb-4">
+            <i class="fa-solid fa-chart-column text-amber-500"></i>
+            <h3 class="font-bold text-slate-900 text-sm" data-i18n="stk_g1">BI &amp; Visualización</h3>
+          </div>
+          <div class="flex flex-wrap gap-2">
+            <span class="px-2.5 py-1 rounded-lg bg-amber-50 text-amber-900 border border-amber-200 text-xs font-semibold">Power BI</span>
+            <span class="px-2.5 py-1 rounded-lg bg-amber-50 text-amber-900 border border-amber-200 text-xs font-semibold">DAX</span>
+            <span class="px-2.5 py-1 rounded-lg bg-emerald-50 text-emerald-900 border border-emerald-200 text-xs font-semibold">Power Query</span>
+            <span class="px-2.5 py-1 rounded-lg bg-orange-50 text-orange-900 border border-orange-200 text-xs font-semibold">Tableau</span>
+            <span class="px-2.5 py-1 rounded-lg bg-sky-50 text-sky-900 border border-sky-200 text-xs font-semibold">Looker Studio</span>
+            <span class="px-2.5 py-1 rounded-lg bg-slate-100 text-slate-800 border border-slate-200 text-xs font-semibold">Excel Avanzado</span>
+          </div>
+        </div>
+
+        <!-- Group 2: Databases & ETL -->
+        <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm">
+          <div class="flex items-center gap-2.5 mb-4">
+            <i class="fa-solid fa-database text-sky-500"></i>
+            <h3 class="font-bold text-slate-900 text-sm" data-i18n="stk_g2">Bases de Datos &amp; Cloud</h3>
+          </div>
+          <div class="flex flex-wrap gap-2">
+            <span class="px-2.5 py-1 rounded-lg bg-sky-50 text-sky-900 border border-sky-200 text-xs font-semibold">SQL</span>
+            <span class="px-2.5 py-1 rounded-lg bg-indigo-50 text-indigo-900 border border-indigo-200 text-xs font-semibold">PostgreSQL</span>
+            <span class="px-2.5 py-1 rounded-lg bg-blue-50 text-blue-900 border border-blue-200 text-xs font-semibold">BigQuery</span>
+            <span class="px-2.5 py-1 rounded-lg bg-slate-100 text-slate-800 border border-slate-200 text-xs font-semibold">Star Schema</span>
+            <span class="px-2.5 py-1 rounded-lg bg-slate-100 text-slate-800 border border-slate-200 text-xs font-semibold">ETL / ELT</span>
+          </div>
+        </div>
+
+        <!-- Group 3: ML & GenAI -->
+        <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm">
+          <div class="flex items-center gap-2.5 mb-4">
+            <i class="fa-solid fa-microchip text-emerald-500"></i>
+            <h3 class="font-bold text-slate-900 text-sm" data-i18n="stk_g3">Data Science &amp; GenAI</h3>
+          </div>
+          <div class="flex flex-wrap gap-2">
+            <span class="px-2.5 py-1 rounded-lg bg-sky-50 text-sky-900 border border-sky-200 text-xs font-semibold">Python</span>
+            <span class="px-2.5 py-1 rounded-lg bg-indigo-50 text-indigo-900 border border-indigo-200 text-xs font-semibold">Pandas / NumPy</span>
+            <span class="px-2.5 py-1 rounded-lg bg-orange-50 text-orange-900 border border-orange-200 text-xs font-semibold">Scikit-Learn</span>
+            <span class="px-2.5 py-1 rounded-lg bg-emerald-50 text-emerald-900 border border-emerald-200 text-xs font-semibold">XGBoost</span>
+            <span class="px-2.5 py-1 rounded-lg bg-teal-50 text-teal-900 border border-teal-200 text-xs font-semibold">LightGBM</span>
+            <span class="px-2.5 py-1 rounded-lg bg-purple-50 text-purple-900 border border-purple-200 text-xs font-semibold">Gemini AI / NLP</span>
+            <span class="px-2.5 py-1 rounded-lg bg-slate-100 text-slate-800 border border-slate-200 text-xs font-semibold">R</span>
+          </div>
+        </div>
+
+        <!-- Group 4: APIs, Apps & Workflow -->
+        <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm">
+          <div class="flex items-center gap-2.5 mb-4">
+            <i class="fa-solid fa-rocket text-indigo-500"></i>
+            <h3 class="font-bold text-slate-900 text-sm" data-i18n="stk_g4">APIs, Apps &amp; Despliegue</h3>
+          </div>
+          <div class="flex flex-wrap gap-2">
+            <span class="px-2.5 py-1 rounded-lg bg-rose-50 text-rose-900 border border-rose-200 text-xs font-semibold">Streamlit</span>
+            <span class="px-2.5 py-1 rounded-lg bg-teal-50 text-teal-900 border border-teal-200 text-xs font-semibold">FastAPI</span>
+            <span class="px-2.5 py-1 rounded-lg bg-sky-50 text-sky-900 border border-sky-200 text-xs font-semibold">Docker</span>
+            <span class="px-2.5 py-1 rounded-lg bg-slate-100 text-slate-800 border border-slate-200 text-xs font-semibold">Git / GitHub</span>
+            <span class="px-2.5 py-1 rounded-lg bg-blue-50 text-blue-900 border border-blue-200 text-xs font-semibold">Jira / Notion</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================================== -->
+  <!-- CONTACT SECTION                                                       -->
+  <!-- ===================================================================== -->
+  <section id="contact" class="py-20 sm:py-24 bg-[#090D16] text-white relative overflow-hidden">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div class="text-center max-w-2xl mx-auto mb-14">
+        <span class="text-xs font-mono font-bold uppercase tracking-widest text-emerald-400" data-i18n="contact_kicker">Conectemos</span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold mt-2 tracking-tight" data-i18n="contact_title">¿Listo para transformar tus datos en ventaja competitiva?</h2>
+        <p class="text-slate-400 mt-3 text-sm sm:text-base" data-i18n="contact_subtitle">
+          Abierto a oportunidades 100% remotas y proyectos de consultoría en Business Intelligence, Data Analytics y Ciencia de Datos.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+        <!-- Email Card -->
+        <div class="glass-panel rounded-2xl p-6 text-center hover:border-sky-400/60 transition-colors">
+          <div class="w-12 h-12 rounded-xl bg-sky-500/15 text-sky-400 flex items-center justify-center text-xl mx-auto mb-4">
+            <i class="fa-solid fa-envelope"></i>
+          </div>
+          <h3 class="font-bold text-base mb-1" data-i18n="cnt_email_title">Correo Directo</h3>
+          <p class="text-slate-400 font-mono text-xs sm:text-sm mb-4">jose.aduran@live.com</p>
+          <div class="flex items-center justify-center gap-2">
+            <a href="mailto:jose.aduran@live.com" class="px-4 py-2 rounded-lg bg-sky-500 hover:bg-sky-400 text-slate-950 font-bold text-xs transition-colors" data-i18n="btn_send_email">
+              Escribir correo
+            </a>
+            <button onclick="copyEmail()" class="px-3 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 text-xs transition-colors" title="Copiar correo">
+              <i class="fa-regular fa-copy"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- LinkedIn Card -->
+        <div class="glass-panel rounded-2xl p-6 text-center hover:border-sky-400/60 transition-colors">
+          <div class="w-12 h-12 rounded-xl bg-sky-500/15 text-sky-400 flex items-center justify-center text-xl mx-auto mb-4">
+            <i class="fa-brands fa-linkedin-in"></i>
+          </div>
+          <h3 class="font-bold text-base mb-1">LinkedIn</h3>
+          <p class="text-slate-400 font-mono text-xs sm:text-sm mb-4">/in/joseariasduran</p>
+          <a href="https://linkedin.com/in/joseariasduran" target="_blank" rel="noopener noreferrer" class="inline-block px-4 py-2 rounded-lg bg-slate-800 hover:bg-sky-500 hover:text-slate-950 text-white border border-slate-700 font-bold text-xs transition-colors" data-i18n="btn_connect">
+            Conectar en LinkedIn
+          </a>
+        </div>
+
+        <!-- GitHub Card -->
+        <div class="glass-panel rounded-2xl p-6 text-center hover:border-emerald-400/60 transition-colors">
+          <div class="w-12 h-12 rounded-xl bg-emerald-500/15 text-emerald-400 flex items-center justify-center text-xl mx-auto mb-4">
+            <i class="fa-brands fa-github"></i>
+          </div>
+          <h3 class="font-bold text-base mb-1">GitHub</h3>
+          <p class="text-slate-400 font-mono text-xs sm:text-sm mb-4">@joseariasduran</p>
+          <a href="https://github.com/joseariasduran" target="_blank" rel="noopener noreferrer" class="inline-block px-4 py-2 rounded-lg bg-slate-800 hover:bg-emerald-400 hover:text-slate-950 text-white border border-slate-700 font-bold text-xs transition-colors" data-i18n="btn_github">
+            Explorar Repositorios
+          </a>
+        </div>
+      </div>
+
+      <!-- Bottom Location & CV Bar -->
+      <div class="glass-panel rounded-2xl p-5 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div class="flex items-center gap-3 text-xs sm:text-sm text-slate-300">
+          <i class="fa-solid fa-location-dot text-emerald-400 text-base"></i>
+          <span>Guasave, Sinaloa, México &bull; <strong class="text-white" data-i18n="remote_label">Disponibilidad 100% Remota</strong></span>
+        </div>
+        <button onclick="triggerCvDownload()" class="w-full sm:w-auto px-5 py-2.5 rounded-xl bg-gradient-to-r from-sky-500 to-emerald-400 hover:from-sky-400 hover:to-emerald-300 text-slate-950 font-bold text-xs flex items-center justify-center gap-2 transition-all">
+          <i class="fa-solid fa-file-pdf"></i>
+          <span data-i18n="btn_download_cv">Descargar Currículum (CV)</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================================== -->
+  <!-- FOOTER                                                                -->
+  <!-- ===================================================================== -->
+  <footer class="bg-[#05080F] text-slate-500 py-7 border-t border-slate-900 text-xs">
+    <div class="max-w-6xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-3">
+      <p>&copy; <span id="current-year"></span> <strong class="text-slate-300">José de Jesús Arias Durán</strong>. <span data-i18n="footer_rights">Todos los derechos reservados.</span></p>
+      <p class="font-mono text-[11px] text-slate-500">Executive BI &amp; Data Science Portfolio</p>
+    </div>
+  </footer>
+
+  <!-- ===================================================================== -->
+  <!-- CASE STUDY & SERVICE DETAIL MODAL                                     -->
+  <!-- ===================================================================== -->
+  <div id="detail-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-slate-950/85 backdrop-blur-sm modal-backdrop" onclick="closeModalOnBackdrop(event)">
+    <div class="bg-white text-slate-800 rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl border border-slate-200 modal-panel">
+      <div class="flex items-center justify-between px-6 py-4 border-b border-slate-100 sticky top-0 bg-white z-10">
+        <span id="modal-badge" class="px-2.5 py-1 rounded-md text-xs font-mono font-bold bg-sky-50 text-sky-700 border border-sky-200">
+          CASE STUDY
+        </span>
+        <button onclick="closeModal()" aria-label="Cerrar" class="w-8 h-8 rounded-lg text-slate-400 hover:text-slate-800 hover:bg-slate-100 flex items-center justify-center transition-colors">
+          <i class="fa-solid fa-xmark text-lg"></i>
+        </button>
+      </div>
+      <div id="modal-body" class="p-6 sm:p-8"></div>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div id="toast" class="fixed bottom-5 right-5 z-50 hidden items-center gap-2.5 bg-slate-900 text-white text-xs sm:text-sm font-medium px-4 py-3 rounded-xl shadow-2xl border border-sky-500/40">
+    <i class="fa-solid fa-circle-check text-emerald-400"></i>
+    <span id="toast-message">Notificación</span>
+  </div>
+
+  <!-- ===================================================================== -->
+  <!-- JAVASCRIPT ENGINE: CANVAS NETWORK, SIMULATOR, TYPEWRITER & I18N       -->
+  <!-- ===================================================================== -->
+  <script>
+    document.getElementById('current-year').textContent = new Date().getFullYear();
+
+    let currentLang = 'es';
+    let currentFilter = 'all';
+    let currentSim = 'churn';
+
+    // -----------------------------------------------------------------------
+    // 1. INTERACTIVE HTML5 PARTICLE / DATA NODE NETWORK (HERO CANVAS)
+    // -----------------------------------------------------------------------
+    (function initDataNetwork() {
+      const canvas = document.getElementById('data-network-canvas');
+      const ctx = canvas.getContext('2d');
+      let width, height, particles = [];
+      const mouse = { x: null, y: null, radius: 150 };
+
+      function resizeCanvas() {
+        width = canvas.width = canvas.parentElement.offsetWidth;
+        height = canvas.height = canvas.parentElement.offsetHeight;
+        createParticles();
+      }
+
+      class NodeParticle {
+        constructor(x, y, isBurst = false) {
+          this.x = x !== undefined ? x : Math.random() * width;
+          this.y = y !== undefined ? y : Math.random() * height;
+          const speedScale = isBurst ? 2.2 : 0.65;
+          this.vx = (Math.random() - 0.5) * speedScale;
+          this.vy = (Math.random() - 0.5) * speedScale;
+          this.size = Math.random() * 2.2 + 1.2;
+          const palette = ['#38BDF8', '#10B981', '#818CF8'];
+          this.color = palette[Math.floor(Math.random() * palette.length)];
+        }
+        update() {
+          this.x += this.vx;
+          this.y += this.vy;
+
+          if (this.x < 0 || this.x > width) this.vx *= -1;
+          if (this.y < 0 || this.y > height) this.vy *= -1;
+
+          // Subtle repulsion/attraction around mouse
+          if (mouse.x !== null && mouse.y !== null) {
+            const dx = mouse.x - this.x;
+            const dy = mouse.y - this.y;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+            if (dist < mouse.radius && dist > 0) {
+              const force = (mouse.radius - dist) / mouse.radius;
+              this.x -= (dx / dist) * force * 1.4;
+              this.y -= (dy / dist) * force * 1.4;
+            }
+          }
+        }
+        draw() {
+          ctx.beginPath();
+          ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+          ctx.fillStyle = this.color;
+          ctx.fill();
+        }
+      }
+
+      function createParticles() {
+        const count = Math.min(Math.floor((width * height) / 14000), 85);
+        particles = [];
+        for (let i = 0; i < count; i++) {
+          particles.push(new NodeParticle());
+        }
+      }
+
+      function animateNetwork() {
+        ctx.clearRect(0, 0, width, height);
+
+        for (let i = 0; i < particles.length; i++) {
+          particles[i].update();
+          particles[i].draw();
+
+          // Connect nearby data nodes
+          for (let j = i + 1; j < particles.length; j++) {
+            const dx = particles[i].x - particles[j].x;
+            const dy = particles[i].y - particles[j].y;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+            if (dist < 130) {
+              ctx.beginPath();
+              ctx.strokeStyle = `rgba(56, 189, 248, ${(1 - dist / 130) * 0.22})`;
+              ctx.lineWidth = 0.8;
+              ctx.moveTo(particles[i].x, particles[i].y);
+              ctx.lineTo(particles[j].x, particles[j].y);
+              ctx.stroke();
+            }
+          }
+
+          // Connect nodes directly to cursor
+          if (mouse.x !== null && mouse.y !== null) {
+            const dx = particles[i].x - mouse.x;
+            const dy = particles[i].y - mouse.y;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+            if (dist < 170) {
+              ctx.beginPath();
+              ctx.strokeStyle = `rgba(16, 185, 129, ${(1 - dist / 170) * 0.45})`;
+              ctx.lineWidth = 1.1;
+              ctx.moveTo(particles[i].x, particles[i].y);
+              ctx.lineTo(mouse.x, mouse.y);
+              ctx.stroke();
+            }
+          }
+        }
+        requestAnimationFrame(animateNetwork);
+      }
+
+      canvas.addEventListener('mousemove', (e) => {
+        const rect = canvas.getBoundingClientRect();
+        mouse.x = e.clientX - rect.left;
+        mouse.y = e.clientY - rect.top;
+      });
+
+      canvas.addEventListener('mouseleave', () => {
+        mouse.x = null;
+        mouse.y = null;
+      });
+
+      // Spawn burst of data nodes on click
+      canvas.addEventListener('click', (e) => {
+        const rect = canvas.getBoundingClientRect();
+        const cx = e.clientX - rect.left;
+        const cy = e.clientY - rect.top;
+        for (let i = 0; i < 5; i++) {
+          if (particles.length > 110) particles.shift();
+          particles.push(new NodeParticle(cx, cy, true));
+        }
+      });
+
+      window.addEventListener('resize', resizeCanvas);
+      window.addEventListener('load', () => {
+        resizeCanvas();
+        animateNetwork();
+      });
+    })();
+
+    // -----------------------------------------------------------------------
+    // 2. ANIMATED TYPEWRITER ROLES
+    // -----------------------------------------------------------------------
+    const rolesByLang = {
+      es: [
+        "Business Intelligence Analyst",
+        "Data Scientist & ML Engineer",
+        "Ingeniero Industrial y de Sistemas",
+        "Especialista en Power BI, SQL & GenAI"
+      ],
+      en: [
+        "Business Intelligence Analyst",
+        "Data Scientist & ML Engineer",
+        "Industrial & Systems Engineer",
+        "Power BI, SQL & GenAI Specialist"
+      ]
+    };
+
+    let roleIdx = 0;
+    let charIdx = 0;
+    let isDeleting = false;
+
+    function runTypewriter() {
+      const target = document.getElementById('typewriter-text');
+      const currentList = rolesByLang[currentLang];
+      const fullText = currentList[roleIdx % currentList.length];
+
+      if (!isDeleting) {
+        charIdx++;
+        target.textContent = fullText.substring(0, charIdx);
+        if (charIdx === fullText.length) {
+          isDeleting = true;
+          setTimeout(runTypewriter, 2000);
+          return;
+        }
+      } else {
+        charIdx--;
+        target.textContent = fullText.substring(0, charIdx);
+        if (charIdx === 0) {
+          isDeleting = false;
+          roleIdx = (roleIdx + 1) % currentList.length;
+        }
+      }
+      setTimeout(runTypewriter, isDeleting ? 35 : 65);
+    }
+    runTypewriter();
+
+    // -----------------------------------------------------------------------
+    // 3. LIVE HERO EXECUTIVE BI & PREDICTIVE SIMULATOR
+    // -----------------------------------------------------------------------
+    const simConfigs = {
+      churn: {
+        badge: "XGBoost Classifier • 88% Accuracy",
+        title: { es: "Retención Posventa Automotriz", en: "Automotive After-Sales Retention" },
+        sliderLabel: { es: "Cobertura de Campaña Predictiva", en: "Predictive Campaign Coverage" },
+        kpi1Label: { es: "Ingresos Retenidos", en: "Retained Revenue" },
+        kpi2Label: { es: "Reducción Churn", en: "Churn Reduction" },
+        kpi3Label: { es: "Precisión Modelo", en: "Model Precision" },
+        calc: (v) => ({
+          gauge: Math.round(52 + v * 0.38),
+          kpi1: `+$${Math.round(45 + v * 1.65)}K`,
+          kpi2: `-${(8 + v * 0.26).toFixed(1)}%`,
+          kpi3: `${(82 + v * 0.08).toFixed(1)}%`,
+          lift: `+${(12 + v * 0.32).toFixed(1)}%`
+        })
+      },
+      noshow: {
+        badge: "LightGBM + Power BI • Capacity Engine",
+        title: { es: "Optimización de Capacidad Médica", en: "Medical Capacity Optimization" },
+        sliderLabel: { es: "Overbooking Inteligente & Recordatorios", en: "Smart Overbooking & Reminders" },
+        kpi1Label: { es: "Horas Recuperadas", en: "Recovered Hours" },
+        kpi2Label: { es: "Caída No-Show", en: "No-Show Drop" },
+        kpi3Label: { es: "Ocupación Clínica", en: "Clinic Utilization" },
+        calc: (v) => ({
+          gauge: Math.round(60 + v * 0.34),
+          kpi1: `+${Math.round(180 + v * 4.2)} hrs`,
+          kpi2: `-${(10 + v * 0.28).toFixed(1)}%`,
+          kpi3: `${(74 + v * 0.21).toFixed(1)}%`,
+          lift: `+${(15 + v * 0.29).toFixed(1)}%`
+        })
+      },
+      b2b: {
+        badge: "Python Scraper + Gemini AI • B2B Engine",
+        title: { es: "Inteligencia Comercial & Leads B2B", en: "B2B Lead & Reputation Intelligence" },
+        sliderLabel: { es: "Automatización de Prospección IA", en: "AI Outreach Automation Level" },
+        kpi1Label: { es: "Leads Calificados", en: "Qualified Leads" },
+        kpi2Label: { es: "Tasa Respuesta", en: "Reply Rate Lift" },
+        kpi3Label: { es: "Ahorro Tiempo", en: "Time Saved" },
+        calc: (v) => ({
+          gauge: Math.round(58 + v * 0.39),
+          kpi1: `+${Math.round(120 + v * 3.8)}/mes`,
+          kpi2: `+${(1.8 + v * 0.064).toFixed(1)}x`,
+          kpi3: `${Math.round(40 + v * 0.48)}%`,
+          lift: `+${(22 + v * 0.45).toFixed(1)}%`
+        })
+      }
+    };
+
+    function setSimScenario(scenario) {
+      currentSim = scenario;
+      document.querySelectorAll('.sim-tab').forEach(tab => {
+        tab.className = "sim-tab px-2 py-2 rounded-lg text-[11px] font-semibold text-slate-400 hover:text-white transition-all truncate";
+      });
+      const activeTab = document.getElementById(`sim-tab-${scenario}`);
+      activeTab.className = "sim-tab px-2 py-2 rounded-lg text-[11px] font-bold bg-sky-500 text-slate-950 transition-all truncate shadow";
+      updateSimulator();
+    }
+
+    function updateSimulator() {
+      const val = parseInt(document.getElementById('sim-slider').value, 10);
+      document.getElementById('sim-slider-val').textContent = `${val}%`;
+
+      const cfg = simConfigs[currentSim];
+      const metrics = cfg.calc(val);
+
+      document.getElementById('sim-model-badge').textContent = cfg.badge;
+      document.getElementById('sim-title').textContent = cfg.title[currentLang];
+      document.getElementById('sim-slider-label').textContent = cfg.sliderLabel[currentLang];
+
+      document.getElementById('sim-kpi1-label').textContent = cfg.kpi1Label[currentLang];
+      document.getElementById('sim-kpi2-label').textContent = cfg.kpi2Label[currentLang];
+      document.getElementById('sim-kpi3-label').textContent = cfg.kpi3Label[currentLang];
+
+      document.getElementById('sim-kpi1-val').textContent = metrics.kpi1;
+      document.getElementById('sim-kpi2-val').textContent = metrics.kpi2;
+      document.getElementById('sim-kpi3-val').textContent = metrics.kpi3;
+      document.getElementById('sim-lift-badge').textContent = metrics.lift;
+
+      // Update Radial Gauge
+      document.getElementById('sim-gauge-text').textContent = `${metrics.gauge}%`;
+      document.getElementById('sim-gauge-ring').setAttribute('stroke-dasharray', `${metrics.gauge}, 100`);
+
+      // Update Dynamic SVG Sparkline Path
+      const factor = val / 100;
+      const y1 = 62 - factor * 6;
+      const y2 = 56 - factor * 14;
+      const y3 = 50 - factor * 22;
+      const y4 = 44 - factor * 28;
+      const y5 = 38 - factor * 30;
+      const y6 = 32 - factor * 26;
+
+      const lineD = `M 0 ${y1.toFixed(1)} L 64 ${y2.toFixed(1)} L 128 ${y3.toFixed(1)} L 192 ${y4.toFixed(1)} L 256 ${y5.toFixed(1)} L 320 ${y6.toFixed(1)}`;
+      const areaD = `${lineD} L 320 72 L 0 72 Z`;
+
+      document.getElementById('sim-sparkline-path').setAttribute('d', lineD);
+      document.getElementById('sim-area-path').setAttribute('d', areaD);
+    }
+
+    // -----------------------------------------------------------------------
+    // 4. BILINGUAL DICTIONARY (ES / EN)
+    // -----------------------------------------------------------------------
+    const i18n = {
+      es: {
+        nav_cmd: "Command Center",
+        nav_about: "Trayectoria",
+        nav_services: "Capacidades",
+        nav_portfolio: "Portafolio",
+        nav_contact: "Contacto",
+        hero_badge: "ONLINE • DISPONIBLE PARA ROLES REMOTOS BI & DATA SCIENCE",
+        hero_tagline: "Ingeniero Industrial y de Sistemas con <strong>+10 años de liderazgo operacional</strong> en Nissan, Honda y New Holland. Transformo datos complejos en <strong>arquitecturas de BI, tableros ejecutivos y modelos predictivos</strong> que maximizan rentabilidad, retención y capacidad operativa.",
+        canvas_hint: "Mueve el cursor o haz clic en el fondo para interactuar con la red de datos",
+        cta_projects: "Explorar Casos de Estudio",
+        cta_contact: "Agendar Conversación",
+        cta_cv: "CV.pdf",
+        sim_header: "SIMULADOR PREDICTIVO EN VIVO",
+        sim_tab_churn: "Churn Automotriz",
+        sim_tab_noshow: "Capacidad Médica",
+        sim_tab_b2b: "Leads B2B & IA",
+        sim_chart_title: "PROYECCIÓN TRIMESTRAL DE IMPACTO (Q1 - Q4)",
+        about_kicker: "Diferenciador Ejecutivo",
+        about_title: "Trayectoria & Liderazgo Operacional",
+        stat_exp: "Años Ops",
+        stat_focus: "Stack Dual",
+        stat_brands: "Marcas Global",
+        about_heading: "No solo construyo modelos y dashboards: entiendo la operación que genera los datos",
+        about_p1: "Como <strong>Ingeniero Industrial y de Sistemas</strong> con más de una década dirigiendo operaciones técnicas, inventarios, garantías y posventa en los sectores automotriz, motocicletas y maquinaria agrícola, traduje cada indicador operativo en resultados financieros tangibles. Hoy combino esa experiencia de campo con <strong>Business Intelligence, Machine Learning e IA Generativa</strong> para construir soluciones analíticas que los directivos realmente utilizan.",
+        tl1_title: "Liderazgo Operacional & Analítica Posventa (+10 Años)",
+        tl1_desc: "Gestión integral de operaciones de servicio, control de inventarios de refacciones, administración de garantías, KPIs de rentabilidad de taller y retención de clientes (Churn & LTV).",
+        tl2_title: "Especialización en Data Science, BI & GenAI",
+        tl2_desc: "Desarrollo de modelos predictivos (XGBoost, LightGBM), series temporales, simulación estadística (Bootstrapping), arquitecturas en Power BI/DAX y pipelines de NLP con Gemini AI.",
+        tl3_title: "Ingeniero Industrial y de Sistemas",
+        tl3_desc: "Formación en optimización de procesos, investigación de operaciones, control estadístico de calidad, diseño de sistemas de información y toma de decisiones basada en datos.",
+        services_kicker: "Capacidades & Soluciones",
+        services_title: "¿Cómo impulso tu estrategia de datos?",
+        services_subtitle: "Selecciona cualquier módulo para inspeccionar los entregables técnicos, metodologías y herramientas de implementación.",
+        srv1_title: "Arquitectura BI & Power BI",
+        srv1_desc: "Modelado dimensional (Star Schema), ETL con Power Query/SQL, medidas DAX avanzadas y tableros ejecutivos de alto impacto.",
+        srv2_title: "Data Science & ML Predictivo",
+        srv2_desc: "Modelos de Churn, forecasting de demanda con series temporales (XGBoost, LightGBM) y simulación estadística de riesgos.",
+        srv3_title: "IA Comercial & NLP",
+        srv3_desc: "Web scraping automatizado, análisis de sentimientos y extracción de dolor de clientes B2B impulsado por LLMs (Gemini AI).",
+        srv4_title: "Analítica Operativa & Apps",
+        srv4_desc: "Optimización de inventarios, KPIs de taller/posventa y simuladores interactivos desplegados en Streamlit y FastAPI.",
+        srv_more: "Inspeccionar",
+        port_kicker: "Casos de Estudio",
+        port_title: "Portafolio de Proyectos",
+        port_subtitle: "Filtra por especialidad o haz clic en un proyecto para explorar el problema de negocio, arquitectura técnica e impacto medible.",
+        filter_all: "Todos (6)",
+        filter_bi: "Business Intelligence",
+        filter_ml: "Machine Learning",
+        filter_ai: "GenAI & Automation",
+        stack_kicker: "Ecosistema Técnico",
+        stack_title: "Tech Stack Matrix",
+        stk_g1: "BI & Visualización",
+        stk_g2: "Bases de Datos & Cloud",
+        stk_g3: "Data Science & GenAI",
+        stk_g4: "APIs, Apps & Despliegue",
+        contact_kicker: "Conectemos",
+        contact_title: "¿Listo para transformar tus datos en ventaja competitiva?",
+        contact_subtitle: "Abierto a oportunidades 100% remotas y proyectos de consultoría en Business Intelligence, Data Analytics y Ciencia de Datos.",
+        cnt_email_title: "Correo Directo",
+        btn_send_email: "Escribir correo",
+        btn_connect: "Conectar en LinkedIn",
+        btn_github: "Explorar Repositorios",
+        remote_label: "Disponibilidad 100% Remota",
+        btn_download_cv: "Descargar Currículum (CV)",
+        footer_rights: "Todos los derechos reservados.",
+        view_case: "Ver caso de estudio"
+      },
+      en: {
+        nav_cmd: "Command Center",
+        nav_about: "Experience",
+        nav_services: "Capabilities",
+        nav_portfolio: "Portfolio",
+        nav_contact: "Contact",
+        hero_badge: "ONLINE • OPEN TO REMOTE BI & DATA SCIENCE ROLES",
+        hero_tagline: "Industrial & Systems Engineer with <strong>10+ years of operational leadership</strong> across Nissan, Honda, and New Holland. I transform complex operational data into <strong>BI architectures, executive dashboards, and predictive models</strong> that maximize profitability, retention, and capacity.",
+        canvas_hint: "Move cursor or click background to interact with live data nodes",
+        cta_projects: "Explore Case Studies",
+        cta_contact: "Schedule a Conversation",
+        cta_cv: "CV.pdf",
+        sim_header: "LIVE PREDICTIVE SIMULATOR",
+        sim_tab_churn: "Auto Churn",
+        sim_tab_noshow: "Medical Capacity",
+        sim_tab_b2b: "B2B Leads & AI",
+        sim_chart_title: "QUARTERLY IMPACT PROJECTION (Q1 - Q4)",
+        about_kicker: "Executive Differentiator",
+        about_title: "Experience & Operational Leadership",
+        stat_exp: "Years Ops",
+        stat_focus: "Dual Stack",
+        stat_brands: "Global Brands",
+        about_heading: "I don't just build models and dashboards: I understand the operations behind the data",
+        about_p1: "As an <strong>Industrial and Systems Engineer</strong> with over a decade leading technical operations, spare-parts inventories, warranties, and after-sales service across the automotive, motorcycle, and agricultural machinery sectors, I translated operational KPIs into measurable financial gains. Today I blend that field expertise with <strong>Business Intelligence, Machine Learning, and Generative AI</strong> to deliver analytics solutions executives actually adopt.",
+        tl1_title: "Operational Leadership & After-Sales Analytics (10+ Years)",
+        tl1_desc: "End-to-end service operations management, inventory optimization, warranty administration, workshop profitability KPIs, and customer retention (Churn & LTV).",
+        tl2_title: "Data Science, BI & GenAI Specialization",
+        tl2_desc: "Predictive modeling (XGBoost, LightGBM), time-series forecasting, statistical risk simulation (Bootstrapping), Power BI/DAX architectures, and Gemini AI NLP pipelines.",
+        tl3_title: "B.S. in Industrial and Systems Engineering",
+        tl3_desc: "Background in process optimization, operations research, statistical quality control, information systems design, and data-driven decision making.",
+        services_kicker: "Capabilities & Solutions",
+        services_title: "How I Drive Your Data Strategy",
+        services_subtitle: "Select any module to inspect technical deliverables, methodologies, and deployment tools.",
+        srv1_title: "BI & Power BI Architecture",
+        srv1_desc: "Dimensional modeling (Star Schema), Power Query/SQL ETL pipelines, advanced DAX measures, and high-impact executive dashboards.",
+        srv2_title: "Data Science & Predictive ML",
+        srv2_desc: "Customer churn models, time-series demand forecasting (XGBoost, LightGBM), and statistical risk simulation.",
+        srv3_title: "Commercial AI & NLP",
+        srv3_desc: "Automated web scraping, sentiment analysis, and B2B prospect pain-point extraction powered by LLMs (Gemini AI).",
+        srv4_title: "Operational Analytics & Apps",
+        srv4_desc: "Inventory optimization, service workshop KPIs, and interactive simulators deployed with Streamlit and FastAPI.",
+        srv_more: "Inspect",
+        port_kicker: "Case Studies",
+        port_title: "Project Portfolio",
+        port_subtitle: "Filter by specialty or click any project to explore the business problem, technical architecture, and measurable impact.",
+        filter_all: "All (6)",
+        filter_bi: "Business Intelligence",
+        filter_ml: "Machine Learning",
+        filter_ai: "GenAI & Automation",
+        stack_kicker: "Technical Ecosystem",
+        stack_title: "Tech Stack Matrix",
+        stk_g1: "BI & Visualization",
+        stk_g2: "Databases & Cloud",
+        stk_g3: "Data Science & GenAI",
+        stk_g4: "APIs, Apps & Deployment",
+        contact_kicker: "Let's Connect",
+        contact_title: "Ready to turn your data into a competitive advantage?",
+        contact_subtitle: "Open to 100% remote full-time roles and consulting engagements in Business Intelligence, Data Analytics, and Data Science.",
+        cnt_email_title: "Direct Email",
+        btn_send_email: "Send Email",
+        btn_connect: "Connect on LinkedIn",
+        btn_github: "Explore Repositories",
+        remote_label: "100% Remote Ready",
+        btn_download_cv: "Download Resume (CV)",
+        footer_rights: "All rights reserved.",
+        view_case: "View case study"
+      }
+    };
+
+    // -----------------------------------------------------------------------
+    // 5. SERVICES MODAL DATA
+    // -----------------------------------------------------------------------
+    const servicesData = {
+      bi: {
+        badge: { es: "MÓDULO 01 • BUSINESS INTELLIGENCE", en: "MODULE 01 • BUSINESS INTELLIGENCE" },
+        title: { es: "Arquitectura BI & Tableros Ejecutivos en Power BI", en: "BI Architecture & Executive Power BI Dashboards" },
+        summary: {
+          es: "Diseño ecosistemas de inteligencia de negocios que conectan múltiples fuentes operativas y financieras en modelos dimensionales rápidos, escalables y fáciles de interpretar por la dirección.",
+          en: "I design business intelligence ecosystems connecting disparate operational and financial sources into fast, scalable dimensional models built for executive clarity."
+        },
+        deliverables: {
+          es: [
+            "Modelado dimensional (Esquema Estrella / Copo de Nieve) siguiendo mejores prácticas de Kimball.",
+            "Automatización de limpieza y transformación ETL/ELT mediante Power Query (M) y SQL.",
+            "Ingeniería de KPIs complejos (YoY, MoM, márgenes, rotación, LTV) con lenguaje DAX optimizado.",
+            "Diseño UX/UI de tableros ejecutivos en Power BI, Tableau y Looker Studio."
+          ],
+          en: [
+            "Dimensional modeling (Star / Snowflake Schema) following Kimball best practices.",
+            "Automated ETL/ELT cleansing and transformation pipelines via Power Query (M) and SQL.",
+            "Complex KPI engineering (YoY, MoM, margins, turnover, LTV) with optimized DAX.",
+            "Executive dashboard UX/UI design in Power BI, Tableau, and Looker Studio."
+          ]
+        }
+      },
+      ds: {
+        badge: { es: "MÓDULO 02 • DATA SCIENCE & MACHINE LEARNING", en: "MODULE 02 • DATA SCIENCE & MACHINE LEARNING" },
+        title: { es: "Modelado Predictivo, Forecasting & Simulación de Riesgos", en: "Predictive Modeling, Forecasting & Risk Simulation" },
+        summary: {
+          es: "Construyo pipelines de Machine Learning reproducibles que anticipan la pérdida de clientes, proyectan demanda operativa y cuantifican riesgos financieros antes de invertir.",
+          en: "I build reproducible Machine Learning pipelines that anticipate customer churn, forecast operational demand, and quantify financial risks prior to capital allocation."
+        },
+        deliverables: {
+          es: [
+            "Modelos de clasificación supervisada (XGBoost, LightGBM, Random Forest) con optimización de hiperparámetros.",
+            "Pronóstico de series temporales con ingeniería de rezagos, estacionalidad y métricas de error (RMSE, sMAPE).",
+            "Análisis de importancia de variables (Feature Importance) para traducir el modelo en reglas de negocio.",
+            "Simulación estadística Monte Carlo / Bootstrapping para evaluación de riesgo e intervalos de confianza."
+          ],
+          en: [
+            "Supervised classification models (XGBoost, LightGBM, Random Forest) with hyperparameter tuning.",
+            "Time-series forecasting featuring lag engineering, seasonality decomposition, and error metrics (RMSE, sMAPE).",
+            "Feature importance interpretation to translate ML outputs into actionable business rules.",
+            "Monte Carlo / Bootstrapping statistical simulation for risk assessment and confidence intervals."
+          ]
+        }
+      },
+      ai: {
+        badge: { es: "MÓDULO 03 • IA GENERATIVA & NLP", en: "MODULE 03 • GENERATIVE AI & NLP" },
+        title: { es: "Inteligencia Comercial Automatizada & Extracción con LLMs", en: "Automated Commercial Intelligence & LLM Extraction" },
+        summary: {
+          es: "Integro modelos de lenguaje de última generación (Gemini AI) con pipelines de extracción de datos para convertir texto no estructurado y reseñas en oportunidades comerciales.",
+          en: "I integrate frontier Large Language Models (Gemini AI) with data scraping pipelines to convert unstructured text and customer reviews into commercial opportunities."
+        },
+        deliverables: {
+          es: [
+            "Pipelines de Web Scraping ético y estructuración de datos de mercado en Python y PostgreSQL.",
+            "Clasificación automática de sentimiento y detección de puntos de dolor operativos mediante Gemini AI.",
+            "Generación automatizada de mensajes personalizados de primer contacto B2B basados en hallazgos reales.",
+            "Integración de flujos de IA con APIs RESTful y bases de datos relacionales."
+          ],
+          en: [
+            "Automated web scraping pipelines and market data structuring in Python and PostgreSQL.",
+            "Automated sentiment classification and operational pain-point detection via Gemini AI.",
+            "Automated generation of personalized B2B outreach emails grounded in real review insights.",
+            "End-to-end AI workflow integration with RESTful APIs and relational databases."
+          ]
+        }
+      },
+      ops: {
+        badge: { es: "MÓDULO 04 • OPERACIONES & SIMULADORES", en: "MODULE 04 • OPERATIONS & SIMULATORS" },
+        title: { es: "Analítica Operativa, Posventa & Aplicaciones Interactivas", en: "Operational Analytics, After-Sales & Interactive Apps" },
+        summary: {
+          es: "Aplico más de 10 años de Ingeniería Industrial para optimizar procesos físicos y comerciales, entregando herramientas interactivas listas para los equipos operativos.",
+          en: "I apply 10+ years of Industrial Engineering to optimize physical and commercial workflows, delivering interactive tools ready for operational teams."
+        },
+        deliverables: {
+          es: [
+            "Optimización de inventarios (ABC/XYZ, punto de reorden, nivel de servicio Fill Rate) y control de garantías.",
+            "Simuladores interactivos de capacidad y escenarios 'What-If' desarrollados en Streamlit.",
+            "Despliegue de modelos analíticos como microservicios mediante FastAPI y contenedores Docker.",
+            "Auditoría y diseño de cuadros de mando integral (Balanced Scorecard) para talleres y operaciones."
+          ],
+          en: [
+            "Inventory optimization (ABC/XYZ, reorder points, Fill Rate) and warranty cost control.",
+            "Interactive capacity and 'What-If' scenario simulators built in Streamlit.",
+            "Analytical model deployment as microservices using FastAPI and Docker containers.",
+            "Balanced Scorecard KPI frameworks for service workshops and field operations."
+          ]
+        }
+      }
+    };
+
+    // -----------------------------------------------------------------------
+    // 6. PORTFOLIO PROJECTS DATA (6 HIGH-IMPACT CASE STUDIES)
+    // -----------------------------------------------------------------------
+    const projectsData = [
+      {
+        id: "repusense",
+        categories: ["ai", "bi"],
+        tag: { es: "GenAI & B2B Intelligence", en: "GenAI & B2B Intelligence" },
+        title: "RepuSense (No Country S10-26)",
+        metric: { es: "Scraping + Gemini AI + PostgreSQL", en: "Scraping + Gemini AI + PostgreSQL" },
+        accentColor: "sky",
+        svgIcon: `<svg viewBox="0 0 400 210" class="w-full h-full"><rect width="400" height="210" fill="#0D1117"/><circle cx="70" cy="105" r="28" fill="#1E293B" stroke="#38BDF8" stroke-width="2"/><text x="70" y="109" text-anchor="middle" fill="#38BDF8" font-family="monospace" font-size="11" font-weight="bold">SCRAPER</text><line x1="98" y1="105" x2="165" y2="105" stroke="#38BDF8" stroke-width="2" stroke-dasharray="4 3"/><rect x="165" y="72" width="76" height="66" rx="12" fill="#1E1B4B" stroke="#818CF8" stroke-width="2"/><text x="203" y="102" text-anchor="middle" fill="#C084FC" font-family="monospace" font-size="11" font-weight="bold">GEMINI</text><text x="203" y="118" text-anchor="middle" fill="#E2E8F0" font-family="monospace" font-size="10">NLP / PAIN</text><line x1="241" y1="105" x2="302" y2="105" stroke="#10B981" stroke-width="2" stroke-dasharray="4 3"/><rect x="302" y="77" width="68" height="56" rx="10" fill="#064E3B" stroke="#10B981" stroke-width="2"/><text x="336" y="102" text-anchor="middle" fill="#34D399" font-family="monospace" font-size="10" font-weight="bold">B2B</text><text x="336" y="116" text-anchor="middle" fill="#ECFDF5" font-family="monospace" font-size="10">EMAIL</text></svg>`,
+        shortDesc: {
+          es: "Plataforma de inteligencia comercial y reputación B2B que extrae reseñas de negocios, detecta puntos de dolor operativos con Gemini AI y redacta correos personalizados.",
+          en: "AI-powered B2B lead and reputation intelligence platform that scrapes business reviews, detects operational pain points with Gemini AI, and drafts personalized outreach emails."
+        },
+        problem: {
+          es: "Los equipos comerciales B2B pierden horas analizando manualmente reseñas y presencia digital de prospectos antes de redactar un correo relevante.",
+          en: "B2B sales teams spend hours manually reviewing prospects' digital reputation before crafting a relevant cold outreach email."
+        },
+        solution: {
+          es: "Pipeline integral con web scraper en Python, análisis de reseñas y detección de áreas de mejora con Gemini AI, backend en NestJS/Prisma/PostgreSQL y frontend en React.",
+          en: "End-to-end pipeline featuring a Python web scraper, review analysis and pain-point extraction with Gemini AI, NestJS/Prisma/PostgreSQL backend, and React frontend."
+        },
+        impact: {
+          es: "Automatiza al 100% la investigación previa de leads B2B y genera mensajes hiper-personalizados basados en reseñas reales de clientes.",
+          en: "Automates 100% of pre-outreach B2B lead research and generates hyper-personalized emails grounded in real customer reviews."
+        },
+        stack: ["Python", "Web Scraping", "Gemini AI", "PostgreSQL", "NestJS", "React"],
+        repoUrl: "https://github.com/No-Country-simulation/S10-26-equipo-23"
+      },
+      {
+        id: "healthdemand",
+        categories: ["bi", "ml"],
+        tag: { es: "Power BI & Forecasting", en: "Power BI & Forecasting" },
+        title: "HealthDemand (No Country S08-26)",
+        metric: { es: "XGBoost + LightGBM + Power BI", en: "XGBoost + LightGBM + Power BI" },
+        accentColor: "emerald",
+        svgIcon: `<svg viewBox="0 0 400 210" class="w-full h-full"><rect width="400" height="210" fill="#0D1117"/><rect x="35" y="125" width="26" height="50" rx="4" fill="#1E293B"/><rect x="75" y="100" width="26" height="75" rx="4" fill="#1E293B"/><rect x="115" y="110" width="26" height="65" rx="4" fill="#1E293B"/><rect x="155" y="75" width="26" height="100" rx="4" fill="#065F46" stroke="#10B981"/><rect x="195" y="55" width="26" height="120" rx="4" fill="#065F46" stroke="#10B981"/><polyline points="48,120 88,95 128,104 168,68 208,48" fill="none" stroke="#38BDF8" stroke-width="3"/><circle cx="208" cy="48" r="5" fill="#38BDF8"/><rect x="250" y="50" width="115" height="55" rx="8" fill="#161B22" stroke="#30363D"/><text x="307" y="73" text-anchor="middle" fill="#94A3B8" font-family="monospace" font-size="10">NO-SHOW RISK</text><text x="307" y="93" text-anchor="middle" fill="#10B981" font-family="monospace" font-size="15" font-weight="bold">-28.4%</text><rect x="250" y="118" width="115" height="55" rx="8" fill="#161B22" stroke="#30363D"/><text x="307" y="141" text-anchor="middle" fill="#94A3B8" font-family="monospace" font-size="10">POWER BI KPI</text><text x="307" y="160" text-anchor="middle" fill="#38BDF8" font-family="monospace" font-size="14" font-weight="bold">94.2% CAP</text></svg>`,
+        shortDesc: {
+          es: "Sistema predictivo de capacidad médica: clasificación de ausentismo (No-Show) con XGBoost y pronóstico de demanda clínica integrado con tablero ejecutivo en Power BI.",
+          en: "Predictive medical capacity system: patient no-show classification with XGBoost and clinical demand forecasting integrated with an executive Power BI dashboard."
+        },
+        problem: {
+          es: "El ausentismo de pacientes en citas médicas genera tiempos muertos, subutilización de especialistas y pérdida de capacidad instalada.",
+          en: "Patient no-shows create idle clinician time, underutilized specialists, and lost installed healthcare capacity."
+        },
+        solution: {
+          es: "Sistema híbrido con clasificación de probabilidad No-Show (XGBoost) y pronóstico de demanda (LightGBM), conectado a un dashboard ejecutivo en Power BI y simulador en Streamlit.",
+          en: "Hybrid system featuring No-Show probability classification (XGBoost) and demand forecasting (LightGBM), connected to an executive Power BI dashboard and Streamlit simulator."
+        },
+        impact: {
+          es: "Permite aplicar políticas de sobre-reserva inteligente y recordatorios focalizados, recuperando hasta 28% de la capacidad perdida por ausentismo.",
+          en: "Enables smart overbooking policies and targeted reminders, recovering up to 28% of capacity lost to patient no-shows."
+        },
+        stack: ["Power BI", "DAX", "Python", "XGBoost", "LightGBM", "Streamlit"],
+        repoUrl: "https://github.com/joseariasduran"
+      },
+      {
+        id: "datacenter",
+        categories: ["ai", "ml"],
+        tag: { es: "Streamlit & Risk Analytics", en: "Streamlit & Risk Analytics" },
+        title: "AI Data Center Stranded Capacity",
+        metric: { es: "FastAPI + Streamlit + Risk Model", en: "FastAPI + Streamlit + Risk Model" },
+        accentColor: "indigo",
+        svgIcon: `<svg viewBox="0 0 400 210" class="w-full h-full"><rect width="400" height="210" fill="#0D1117"/><path d="M 110 150 A 90 90 0 0 1 290 150" fill="none" stroke="#1E293B" stroke-width="18" stroke-linecap="round"/><path d="M 110 150 A 90 90 0 0 1 255 78" fill="none" stroke="#818CF8" stroke-width="18" stroke-linecap="round"/><text x="200" y="132" text-anchor="middle" fill="#F8FAFC" font-family="monospace" font-size="24" font-weight="bold">4.8 MW</text><text x="200" y="154" text-anchor="middle" fill="#38BDF8" font-family="monospace" font-size="11">STRANDED CAPACITY</text></svg>`,
+        shortDesc: {
+          es: "Modelo de estimación de capacidad varada y análisis de riesgo en centros de datos de IA, acompañado de calculadora ejecutiva interactiva y API REST.",
+          en: "Stranded capacity estimation model and risk analysis for AI data centers, paired with an interactive executive calculator and REST API."
+        },
+        problem: {
+          es: "Las infraestructuras de centros de datos para IA enfrentan altos riesgos financieros por capacidad energética y de cómputo contratada pero subutilizada.",
+          en: "AI data center infrastructures face high financial risks due to contracted yet underutilized power and compute capacity."
+        },
+        solution: {
+          es: "Modelo analítico de estimación de capacidad varada, pipeline de evaluación de riesgo operativo, servicio API en FastAPI y tablero interactivo en Streamlit.",
+          en: "Analytical stranded-capacity estimation model, operational risk evaluation pipeline, FastAPI service, and interactive Streamlit executive dashboard."
+        },
+        impact: {
+          es: "Facilita la simulación en tiempo real de escenarios de carga energética y exposición financiera para decisiones de expansión de infraestructura.",
+          en: "Enables real-time simulation of power load scenarios and financial exposure for infrastructure expansion decisions."
+        },
+        stack: ["Python", "Risk Analysis", "FastAPI", "Streamlit", "Docker"],
+        repoUrl: "https://github.com/joseariasduran"
+      },
+      {
+        id: "autosmart",
+        categories: ["ml", "bi"],
+        tag: { es: "Automotive Retention", en: "Automotive Retention" },
+        title: "AutoSmart-Retention",
+        metric: { es: "88% Precisión en Churn", en: "88% Churn Accuracy" },
+        accentColor: "sky",
+        svgIcon: `<svg viewBox="0 0 400 210" class="w-full h-full"><rect width="400" height="210" fill="#0D1117"/><rect x="40" y="45" width="145" height="120" rx="12" fill="#161B22" stroke="#38BDF8" stroke-width="1.5"/><text x="112" y="98" text-anchor="middle" fill="#38BDF8" font-family="monospace" font-size="32" font-weight="bold">88%</text><text x="112" y="122" text-anchor="middle" fill="#94A3B8" font-family="monospace" font-size="11">MODEL ACCURACY</text><rect x="210" y="52" width="150" height="16" rx="4" fill="#38BDF8"/><rect x="210" y="80" width="115" height="16" rx="4" fill="#10B981"/><rect x="210" y="108" width="88" height="16" rx="4" fill="#818CF8"/><rect x="210" y="136" width="60" height="16" rx="4" fill="#475569"/></svg>`,
+        shortDesc: {
+          es: "Modelo de Machine Learning enfocado en predecir el abandono de clientes (churn) en servicios de posventa automotriz con 88% de precisión.",
+          en: "Machine Learning model focused on predicting customer churn in automotive after-sales services with 88% accuracy."
+        },
+        problem: {
+          es: "La pérdida silenciosa de clientes tras vencer la garantía de fábrica reduce drásticamente los ingresos recurrentes de taller y refacciones.",
+          en: "Silent customer attrition after factory warranty expiration severely impacts recurring workshop and spare-parts revenue."
+        },
+        solution: {
+          es: "Pipeline de Machine Learning con XGBoost y Scikit-Learn que analiza frecuencia de visitas, ticket promedio y antigüedad vehicular para activar alertas tempranas.",
+          en: "Machine Learning pipeline using XGBoost and Scikit-Learn analyzing visit frequency, average spend, and vehicle age to trigger early retention alerts."
+        },
+        impact: {
+          es: "88% de precisión identificando clientes en riesgo, permitiendo campañas de retención focalizadas antes de que abandonen la concesionaria.",
+          en: "88% accuracy identifying at-risk customers, enabling targeted retention campaigns before they churn from the dealership."
+        },
+        stack: ["Python", "Scikit-Learn", "XGBoost", "Customer Analytics", "After-Sales"],
+        repoUrl: "https://github.com/joseariasduran/AutoSmart-Retention"
+      },
+      {
+        id: "sweetlift",
+        categories: ["ml"],
+        tag: { es: "Time Series Forecasting", en: "Time Series Forecasting" },
+        title: "Sweet Lift Taxi Forecasting",
+        metric: { es: "RMSE < 48 en Demanda Horaria", en: "RMSE < 48 Hourly Demand" },
+        accentColor: "emerald",
+        svgIcon: `<svg viewBox="0 0 400 210" class="w-full h-full"><rect width="400" height="210" fill="#0D1117"/><polyline points="30,150 85,120 140,140 195,70 250,115 305,55 365,80" fill="none" stroke="#10B981" stroke-width="3"/><polyline points="30,155 85,125 140,132 195,78 250,108 305,62 365,75" fill="none" stroke="#38BDF8" stroke-width="2" stroke-dasharray="5 4"/><text x="200" y="185" text-anchor="middle" fill="#94A3B8" font-family="monospace" font-size="11">LIGHTGBM TIME-SERIES • RMSE &lt; 48</text></svg>`,
+        shortDesc: {
+          es: "Predicción de demanda horaria de taxis en aeropuertos mediante análisis de series temporales para optimizar la logística de flotas en horas pico.",
+          en: "Hourly airport taxi demand forecasting using time-series analysis to optimize fleet logistics during peak hours."
+        },
+        problem: {
+          es: "Desbalance entre oferta de conductores y picos de llegada de vuelos en aeropuertos, generando tiempos de espera o unidades ociosas.",
+          en: "Imbalance between driver supply and airport flight arrival peaks, causing passenger wait times or idle fleet units."
+        },
+        solution: {
+          es: "Ingeniería de características temporales (rezagos, medias móviles, estacionalidad) y entrenamiento con LightGBM y Random Forest.",
+          en: "Temporal feature engineering (lags, rolling means, seasonality) and modeling with LightGBM and Random Forest."
+        },
+        impact: {
+          es: "Superó el umbral objetivo logrando un RMSE inferior a 48 pedidos por hora para asignación dinámica de flotilla.",
+          en: "Beat the target threshold achieving an RMSE below 48 rides/hour for dynamic fleet allocation."
+        },
+        stack: ["Python", "Time Series", "LightGBM", "Random Forest", "Pandas"],
+        repoUrl: "https://github.com/joseariasduran/Sweet-Lift-Taxi"
+      },
+      {
+        id: "oilygiant-gold",
+        categories: ["ml"],
+        tag: { es: "Risk & Industrial ML", en: "Risk & Industrial ML" },
+        title: "OilyGiant & Gold Recovery",
+        metric: { es: "Bootstrapping & sMAPE Optimization", en: "Bootstrapping & sMAPE Optimization" },
+        accentColor: "indigo",
+        svgIcon: `<svg viewBox="0 0 400 210" class="w-full h-full"><rect width="400" height="210" fill="#0D1117"/><path d="M 40 165 Q 130 160 175 75 T 310 165" fill="rgba(129, 140, 248, 0.25)" stroke="#818CF8" stroke-width="2.5"/><line x1="175" y1="55" x2="175" y2="170" stroke="#38BDF8" stroke-width="2" stroke-dasharray="4 3"/><text x="200" y="190" text-anchor="middle" fill="#94A3B8" font-family="monospace" font-size="11">95% CONFIDENCE • RISK &lt; 2.5%</text></svg>`,
+        shortDesc: {
+          es: "Selección óptima de 200 pozos petroleros mediante simulación Bootstrapping (riesgo < 2.5%) y modelado predictivo de recuperación de oro en procesos industriales.",
+          en: "Optimal selection of 200 oil wells via Bootstrapping risk simulation (risk < 2.5%) and predictive gold recovery modeling across industrial purification stages."
+        },
+        problem: {
+          es: "Maximizar el retorno neto de inversión en exploración petrolera acotando el riesgo de pérdida, y optimizar parámetros fisicoquímicos en purificación minera.",
+          en: "Maximize net ROI in oil exploration while bounding financial loss risk, and optimize physicochemical parameters in mineral purification."
+        },
+        solution: {
+          es: "Simulación estadística Bootstrapping de 1,000 escenarios para intervalos de confianza del 95%, y regresión multietapa validada con métrica sMAPE.",
+          en: "1,000-scenario Bootstrapping simulation for 95% confidence intervals, and multi-stage regression validated with the sMAPE metric."
+        },
+        impact: {
+          es: "Identificación de región óptima con utilidad neta proyectada superior a $24.6M USD y probabilidad de pérdida de apenas 0.9%.",
+          en: "Identified optimal region yielding >$24.6M USD projected net profit with a loss probability of just 0.9%."
+        },
+        stack: ["Python", "Bootstrapping", "Risk Analysis", "Regression", "EDA"],
+        repoUrl: "https://github.com/joseariasduran/OilyGiant"
+      }
+    ];
+
+    // Render Portfolio Cards
+    function renderProjects() {
+      const grid = document.getElementById('projects-grid');
+      grid.innerHTML = '';
+
+      const filtered = currentFilter === 'all'
+        ? projectsData
+        : projectsData.filter(p => p.categories.includes(currentFilter));
+
+      filtered.forEach(project => {
+        const card = document.createElement('article');
+        card.className = "group bg-white rounded-2xl overflow-hidden border border-slate-200 shadow-sm hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between";
+        card.innerHTML = `
+          <div>
+            <!-- Embedded Interactive SVG Diagram Banner -->
+            <div class="relative aspect-video bg-[#0D1117] overflow-hidden border-b border-slate-200">
+              ${project.svgIcon}
+              <span class="absolute top-3 left-3 px-2.5 py-1 rounded-md bg-slate-900/90 backdrop-blur-sm text-sky-400 text-[10px] font-mono font-bold border border-slate-700/80">
+                ${project.tag[currentLang]}
+              </span>
+            </div>
+
+            <!-- Card Content -->
+            <div class="p-6">
+              <div class="text-xs font-mono font-bold text-emerald-600 mb-1.5">
+                ${project.metric[currentLang]}
+              </div>
+              <h3 class="text-lg font-extrabold text-slate-900 mb-2.5 group-hover:text-sky-600 transition-colors">
+                ${project.title}
+              </h3>
+              <p class="text-slate-600 text-sm leading-relaxed line-clamp-3 mb-4">
+                ${project.shortDesc[currentLang]}
+              </p>
+
+              <!-- Tech Stack Tags -->
+              <div class="flex flex-wrap gap-1.5">
+                ${project.stack.slice(0, 4).map(tech => `
+                  <span class="px-2 py-0.5 rounded bg-slate-100 text-slate-700 text-[11px] font-mono font-medium">
+                    ${tech}
+                  </span>
+                `).join('')}
+              </div>
+            </div>
+          </div>
+
+          <!-- Footer Actions -->
+          <div class="px-6 py-4 bg-slate-50 border-t border-slate-100 flex items-center justify-between">
+            <button onclick="openProjectModal('${project.id}')" class="text-xs font-bold text-slate-900 hover:text-sky-600 inline-flex items-center gap-1.5 transition-colors">
+              <span>${i18n[currentLang].view_case}</span>
+              <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+            </button>
+            <a href="${project.repoUrl}" target="_blank" rel="noopener noreferrer" aria-label="GitHub Repository" class="text-slate-400 hover:text-slate-900 transition-colors">
+              <i class="fa-brands fa-github text-lg"></i>
+            </a>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+    }
+
+    function filterProjects(category) {
+      currentFilter = category;
+      document.querySelectorAll('.filter-btn').forEach(btn => {
+        if (btn.dataset.filter === category) {
+          btn.className = "filter-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-bold bg-slate-900 text-white shadow-sm transition-all";
+        } else {
+          btn.className = "filter-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-bold bg-slate-100 text-slate-600 hover:bg-slate-200 transition-all";
+        }
+      });
+      renderProjects();
+    }
+
+    // Switch Language (ES / EN)
+    function setLanguage(lang) {
+      currentLang = lang;
+      document.documentElement.lang = lang;
+
+      const btnEs = document.getElementById('btn-lang-es');
+      const btnEn = document.getElementById('btn-lang-en');
+      if (lang === 'es') {
+        btnEs.className = "px-2.5 py-1 text-xs font-mono font-bold rounded-md bg-sky-500 text-slate-950 transition-all";
+        btnEn.className = "px-2.5 py-1 text-xs font-mono font-bold rounded-md text-slate-400 hover:text-white transition-all";
+      } else {
+        btnEn.className = "px-2.5 py-1 text-xs font-mono font-bold rounded-md bg-sky-500 text-slate-950 transition-all";
+        btnEs.className = "px-2.5 py-1 text-xs font-mono font-bold rounded-md text-slate-400 hover:text-white transition-all";
+      }
+
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (i18n[lang][key]) {
+          el.innerHTML = i18n[lang][key];
+        }
+      });
+
+      updateSimulator();
+      renderProjects();
+    }
+
+    // Open Service Modal
+    function openServiceModal(serviceKey) {
+      const srv = servicesData[serviceKey];
+      if (!srv) return;
+
+      document.getElementById('modal-badge').textContent = srv.badge[currentLang];
+      document.getElementById('modal-body').innerHTML = `
+        <h3 class="text-2xl font-extrabold text-slate-900 mb-3">${srv.title[currentLang]}</h3>
+        <p class="text-slate-600 text-sm sm:text-base leading-relaxed mb-6">${srv.summary[currentLang]}</p>
+        <h4 class="text-xs font-mono font-bold uppercase tracking-wider text-slate-400 mb-3">
+          ${currentLang === 'es' ? 'Entregables & Metodología' : 'Deliverables & Methodology'}
+        </h4>
+        <ul class="space-y-3 mb-6">
+          ${srv.deliverables[currentLang].map(item => `
+            <li class="flex items-start gap-3 text-sm text-slate-700">
+              <i class="fa-solid fa-circle-check text-emerald-500 mt-1"></i>
+              <span>${item}</span>
+            </li>
+          `).join('')}
+        </ul>
+        <div class="pt-4 border-t border-slate-100 flex justify-end">
+          <a href="#contact" onclick="closeModal()" class="px-5 py-2.5 rounded-xl bg-slate-900 hover:bg-sky-600 text-white text-xs font-bold transition-colors">
+            ${currentLang === 'es' ? 'Contactar sobre esta capacidad' : 'Inquire about this capability'}
+          </a>
+        </div>
+      `;
+
+      const modal = document.getElementById('detail-modal');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    }
+
+    // Open Project Case Study Modal
+    function openProjectModal(projectId) {
+      const project = projectsData.find(p => p.id === projectId);
+      if (!project) return;
+
+      document.getElementById('modal-badge').textContent = project.tag[currentLang];
+      document.getElementById('modal-body').innerHTML = `
+        <div class="rounded-xl overflow-hidden border border-slate-200 mb-5 bg-[#0D1117] aspect-video">
+          ${project.svgIcon}
+        </div>
+        <div class="text-xs font-mono font-bold text-emerald-600 mb-1">${project.metric[currentLang]}</div>
+        <h3 class="text-2xl font-extrabold text-slate-900 mb-4">${project.title}</h3>
+
+        <div class="space-y-3.5 text-sm text-slate-600 leading-relaxed mb-6">
+          <div class="p-4 rounded-xl bg-slate-50 border border-slate-200">
+            <h4 class="font-bold text-slate-900 mb-1">
+              <i class="fa-solid fa-bullseye text-rose-500 mr-1.5"></i>
+              ${currentLang === 'es' ? 'Problema de Negocio' : 'Business Problem'}
+            </h4>
+            <p>${project.problem[currentLang]}</p>
+          </div>
+          <div class="p-4 rounded-xl bg-sky-50/60 border border-sky-100">
+            <h4 class="font-bold text-slate-900 mb-1">
+              <i class="fa-solid fa-layer-group text-sky-500 mr-1.5"></i>
+              ${currentLang === 'es' ? 'Arquitectura & Solución' : 'Architecture & Solution'}
+            </h4>
+            <p>${project.solution[currentLang]}</p>
+          </div>
+          <div class="p-4 rounded-xl bg-emerald-50/60 border border-emerald-100">
+            <h4 class="font-bold text-slate-900 mb-1">
+              <i class="fa-solid fa-chart-line text-emerald-600 mr-1.5"></i>
+              ${currentLang === 'es' ? 'Impacto & Resultados' : 'Impact & Results'}
+            </h4>
+            <p>${project.impact[currentLang]}</p>
+          </div>
+        </div>
+
+        <div class="mb-6">
+          <h4 class="text-xs font-mono font-bold uppercase tracking-wider text-slate-400 mb-2">Tech Stack</h4>
+          <div class="flex flex-wrap gap-2">
+            ${project.stack.map(tech => `
+              <span class="px-2.5 py-1 rounded-lg bg-slate-100 text-slate-800 text-xs font-mono font-semibold">${tech}</span>
+            `).join('')}
+          </div>
+        </div>
+
+        <div class="pt-4 border-t border-slate-100 flex flex-wrap items-center justify-between gap-3">
+          <button onclick="closeModal()" class="px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold transition-colors">
+            ${currentLang === 'es' ? 'Cerrar' : 'Close'}
+          </button>
+          <a href="${project.repoUrl}" target="_blank" rel="noopener noreferrer" class="px-5 py-2.5 rounded-xl bg-slate-900 hover:bg-sky-600 text-white text-xs font-bold inline-flex items-center gap-2 transition-colors">
+            <i class="fa-brands fa-github text-sm"></i>
+            <span>${currentLang === 'es' ? 'Ver Repositorio en GitHub' : 'View Repository on GitHub'}</span>
+          </a>
+        </div>
+      `;
+
+      const modal = document.getElementById('detail-modal');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    }
+
+    function closeModal() {
+      const modal = document.getElementById('detail-modal');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    }
+
+    function closeModalOnBackdrop(e) {
+      if (e.target.id === 'detail-modal') closeModal();
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeModal();
+    });
+
+    // Mobile Menu
+    const mobileBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    mobileBtn.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+    function closeMobileMenu() { mobileMenu.classList.add('hidden'); }
+
+    // Copy Email Helper (iframe-safe)
+    function copyEmail() {
+      const temp = document.createElement('input');
+      temp.value = 'jose.aduran@live.com';
+      document.body.appendChild(temp);
+      temp.select();
+      document.execCommand('copy');
+      document.body.removeChild(temp);
+      showToast(currentLang === 'es' ? 'Correo copiado: jose.aduran@live.com' : 'Email copied: jose.aduran@live.com');
+    }
+
+    // CV Download Guidance Helper
+    function triggerCvDownload() {
+      showToast(
+        currentLang === 'es'
+          ? 'Sube tu archivo CV.pdf a /assets/CV.pdf en tu repositorio para descarga directa.'
+          : 'Upload your CV.pdf file to /assets/CV.pdf in your repository for direct download.'
+      );
+    }
+
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      document.getElementById('toast-message').textContent = msg;
+      toast.classList.remove('hidden');
+      toast.classList.add('flex');
+      setTimeout(() => {
+        toast.classList.add('hidden');
+        toast.classList.remove('flex');
+      }, 3600);
+    }
+
+    // Initial render
+    window.addEventListener('DOMContentLoaded', () => {
+      updateSimulator();
+      renderProjects();
+    });
+  </script>
+</body>
+</html>
