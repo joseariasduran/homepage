@@ -247,7 +247,7 @@
             </span>
           </div>
 
-          <!-- Primary & Secondary CTA Buttons -->
+          <!-- Primary & Secondary CTA Buttons (CV DOWNLOAD LINKED TO ./assets/CV.pdf) -->
           <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5">
             <a href="#portfolio" class="px-6 py-3.5 rounded-xl bg-gradient-to-r from-sky-500 to-emerald-400 hover:from-sky-400 hover:to-emerald-300 text-slate-950 font-bold text-sm shadow-lg shadow-sky-500/20 transition-all flex items-center justify-center gap-2">
               <i class="fa-solid fa-chart-line"></i>
@@ -257,10 +257,10 @@
               <i class="fa-solid fa-paper-plane text-sky-400"></i>
               <span data-i18n="cta_contact">Agendar Conversación</span>
             </a>
-            <button onclick="triggerCvDownload()" class="px-5 py-3.5 rounded-xl bg-slate-900/60 hover:bg-slate-800 text-slate-300 hover:text-white font-mono font-semibold text-xs border border-slate-800 transition-all flex items-center justify-center gap-2">
+            <a href="./assets/CV.pdf" download="CV_Jose_Arias_Duran.pdf" target="_blank" class="px-5 py-3.5 rounded-xl bg-slate-900/60 hover:bg-slate-800 text-slate-300 hover:text-white font-mono font-semibold text-xs border border-slate-800 transition-all flex items-center justify-center gap-2">
               <i class="fa-solid fa-file-arrow-down text-emerald-400"></i>
               <span data-i18n="cta_cv">CV.pdf</span>
-            </button>
+            </a>
           </div>
         </div>
 
@@ -391,10 +391,10 @@
         <div class="lg:col-span-5 flex flex-col items-center">
           <div class="w-full max-w-sm bg-white rounded-2xl p-5 shadow-xl border border-slate-200">
             <div class="relative aspect-square rounded-xl overflow-hidden bg-slate-900 mb-5">
-              <!-- Replace with ./assets/profile.jpg when uploading your photo -->
+              <!-- Profile picture loaded from ./assets/profile.jpg -->
               <img
-                src="https://placehold.co/500x500/0D1117/38BDF8?text=Jos%C3%A9+Arias+Dur%C3%A1n"
-                onerror="this.src='https://placehold.co/500x500/0D1117/38BDF8?text=JA'"
+                src="./assets/profile.jpg"
+                onerror="this.src='https://placehold.co/500x500/0D1117/38BDF8?text=Jos%C3%A9+Arias+Dur%C3%A1n'"
                 alt="José de Jesús Arias Durán"
                 class="w-full h-full object-cover"
               />
@@ -736,16 +736,16 @@
         </div>
       </div>
 
-      <!-- Bottom Location & CV Bar -->
+      <!-- Bottom Location & CV Bar (DIRECT CV DOWNLOAD LINKED TO ./assets/CV.pdf) -->
       <div class="glass-panel rounded-2xl p-5 flex flex-col sm:flex-row items-center justify-between gap-4">
         <div class="flex items-center gap-3 text-xs sm:text-sm text-slate-300">
           <i class="fa-solid fa-location-dot text-emerald-400 text-base"></i>
           <span>Guasave, Sinaloa, México &bull; <strong class="text-white" data-i18n="remote_label">Disponibilidad 100% Remota</strong></span>
         </div>
-        <button onclick="triggerCvDownload()" class="w-full sm:w-auto px-5 py-2.5 rounded-xl bg-gradient-to-r from-sky-500 to-emerald-400 hover:from-sky-400 hover:to-emerald-300 text-slate-950 font-bold text-xs flex items-center justify-center gap-2 transition-all">
+        <a href="./assets/CV.pdf" download="CV_Jose_Arias_Duran.pdf" target="_blank" class="w-full sm:w-auto px-5 py-2.5 rounded-xl bg-gradient-to-r from-sky-500 to-emerald-400 hover:from-sky-400 hover:to-emerald-300 text-slate-950 font-bold text-xs flex items-center justify-center gap-2 transition-all">
           <i class="fa-solid fa-file-pdf"></i>
           <span data-i18n="btn_download_cv">Descargar Currículum (CV)</span>
-        </button>
+        </a>
       </div>
     </div>
   </section>
@@ -1694,15 +1694,6 @@
       document.execCommand('copy');
       document.body.removeChild(temp);
       showToast(currentLang === 'es' ? 'Correo copiado: jose.aduran@live.com' : 'Email copied: jose.aduran@live.com');
-    }
-
-    // CV Download Guidance Helper
-    function triggerCvDownload() {
-      showToast(
-        currentLang === 'es'
-          ? 'Sube tu archivo CV.pdf a /assets/CV.pdf en tu repositorio para descarga directa.'
-          : 'Upload your CV.pdf file to /assets/CV.pdf in your repository for direct download.'
-      );
     }
 
     function showToast(msg) {
